@@ -1,13 +1,16 @@
 import { Player } from '../characters/Player'
-import GameObject = Phaser.GameObjects.GameObject
 import GenerateFrameNumbers = Phaser.Types.Animations.GenerateFrameNumbers
 import DynamicTilemapLayer = Phaser.Tilemaps.DynamicTilemapLayer
 import StaticTilemapLayer = Phaser.Tilemaps.StaticTilemapLayer
+import PathFinder from '../util/PathFinder'
+import { Shopper } from '../characters/Shopper'
+import { randomInt } from 'goodish'
 
 enum SpriteSheet {
-  MAIN = 'main'
+  PLAYER = 'player',
+  SHOPPER = 'shopper'
 }
-export enum MainAnim {
+export enum AnimStates {
   LEFT = 'left',
   RIGHT = 'right',
   UP = 'up',
@@ -18,6 +21,12 @@ export enum MainAnim {
   DOWN_WALK = 'down-walk'
 }
 
+export enum CharKey {
+  PLAYER = 'player',
+  SHOPPER = 'shopper',
+  FRANKEN = 'franken'
+}
+
 const mapKey = 'map'
 const tileSheetKey = 'tiles'
 
@@ -25,11 +34,18 @@ export default class GameScene extends Phaser.Scene {
 
   public name = 'game'
   private player!: Player
+  private shoppers: Shopper[] = []
+  private map!: Phaser.Tilemaps.Tilemap
   private layers: (DynamicTilemapLayer | StaticTilemapLayer)[] = []
+  private pathFinder!: PathFinder
 
 
   preload () {
-    this.load.spritesheet(SpriteSheet.MAIN, require('../../assets/images/badass.png'), {
+    this.load.spritesheet(SpriteSheet.PLAYER, require('../../assets/images/badass.png'), {
+      frameWidth: 19,
+      frameHeight: 29
+    })
+    this.load.spritesheet(SpriteSheet.SHOPPER, require('../../assets/images/badass.png'), {
       frameWidth: 19,
       frameHeight: 29
     })
@@ -40,6 +56,7 @@ export default class GameScene extends Phaser.Scene {
   create () {
     this.createAnimations()
     this.makeMap()
+    this.pathFinder = new PathFinder(this.map)
     this.initializeChars()
     this.initializeCollision()
     this.cameras.main.setDeadzone(16 * 8, 16 * 6)
@@ -47,36 +64,42 @@ export default class GameScene extends Phaser.Scene {
   }
 
   makeMap () {
-    const map = this.make.tilemap({ key: mapKey, tileWidth: 16, tileHeight: 16 })
-    const tiles = map.addTilesetImage('test', tileSheetKey)
-    for (const layerData of map.layers) {
+    this.map = this.make.tilemap({ key: mapKey, tileWidth: 16, tileHeight: 16 })
+    const tiles = this.map.addTilesetImage('test', tileSheetKey)
+    for (const layerData of this.map.layers) {
       // @ts-ignore
       const isStatic: boolean = layerData.properties.findIndex(p => p.name === 'static' && p.value) > -1
-      const layer = isStatic ? map.createStaticLayer(layerData.name, tiles) : map.createDynamicLayer(layerData.name, tiles)
-      map.setCollisionByProperty({ collides: true })
+      const layer = isStatic ? this.map.createStaticLayer(layerData.name, tiles) : this.map.createDynamicLayer(layerData.name, tiles)
+      this.map.setCollisionByProperty({ collides: true })
       this.layers.push(layer)
     }
 
     // layer.setCollisionByProperty({ collides: true })
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+    this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
 
   }
 
   createAnimations () {
-    const mainCharAnims: [MainAnim, GenerateFrameNumbers][] = [
-      [MainAnim.UP_WALK, { start: 0, end: 2 }],
-      [MainAnim.DOWN_WALK, { start: 3, end: 5 }],
-      [MainAnim.LEFT_WALK, { start: 6, end: 8 }],
-      [MainAnim.RIGHT_WALK, { start: 9, end: 11 }],
-      [MainAnim.UP, { start: 1, end: 1 }],
-      [MainAnim.DOWN, { start: 4, end: 4 }],
-      [MainAnim.LEFT, { start: 7, end: 7 }],
-      [MainAnim.RIGHT, { start: 10, end: 10 }],
+    const mainCharAnims: [AnimStates, GenerateFrameNumbers][] = [
+      [AnimStates.UP_WALK, { start: 0, end: 2 }],
+      [AnimStates.DOWN_WALK, { start: 3, end: 5 }],
+      [AnimStates.LEFT_WALK, { start: 6, end: 8 }],
+      [AnimStates.RIGHT_WALK, { start: 9, end: 11 }],
+      [AnimStates.UP, { start: 1, end: 1 }],
+      [AnimStates.DOWN, { start: 4, end: 4 }],
+      [AnimStates.LEFT, { start: 7, end: 7 }],
+      [AnimStates.RIGHT, { start: 10, end: 10 }],
     ]
     for (const [key, config] of mainCharAnims) {
       this.anims.create({
-        key: key,
-        frames: this.anims.generateFrameNumbers(SpriteSheet.MAIN, config),
+        key: `${CharKey.PLAYER}-${key}`,
+        frames: this.anims.generateFrameNumbers(SpriteSheet.PLAYER, config),
+        frameRate: 6,
+        repeat: -1
+      })
+      this.anims.create({
+        key: `${CharKey.SHOPPER}-${key}`,
+        frames: this.anims.generateFrameNumbers(SpriteSheet.PLAYER, config),
         frameRate: 6,
         repeat: -1
       })
@@ -84,12 +107,23 @@ export default class GameScene extends Phaser.Scene {
   }
 
   initializeChars () {
-    this.player = new Player(this, 100, 100, SpriteSheet.MAIN)
+    this.player = new Player(this, 100, 100, SpriteSheet.PLAYER)
     this.add.existing(this.player)
+
+    for (let i = 0; i < 1; i++) {
+      const shopper = new Shopper(this, randomInt(0, 200), randomInt(0, 200), SpriteSheet.SHOPPER, CharKey.SHOPPER, this.pathFinder)
+      this.add.existing(shopper)
+      this.shoppers.push(shopper)
+    }
+
   }
 
   initializeCollision () {
     this.physics.add.collider(this.player, this.layers)
+  }
+
+  update (time: number, delta: number) {
+    this.pathFinder.update(time, delta)
   }
 
 }

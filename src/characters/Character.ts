@@ -1,26 +1,36 @@
 import { Direction } from './Player'
 import { CharacterStateAnimMap } from '../types/CharacterStateAnimMap'
 import Vector2 = Phaser.Math.Vector2
-
-export enum CharState {
-  STAND,
-  WALK
-}
+import { AnimStates, CharKey } from '../scenes/GameScene'
 
 export class Character extends Phaser.GameObjects.Sprite {
 
   protected facing: Direction = Direction.DOWN
   private prevFacing: Direction = Direction.UP
   private prevVel: Vector2 = new Vector2(0, 1)
+  private animMap!: CharacterStateAnimMap
 
   public body!: Phaser.Physics.Arcade.Body
   public walkSpeed: number = 300
 
-  constructor (scene: Phaser.Scene, x: number, y: number, texture: string, protected animMap: CharacterStateAnimMap) {
+  constructor (scene: Phaser.Scene, x: number, y: number, texture: string, charKey: CharKey) {
     super(scene, x, y, texture)
+    this.makeAnimMap(charKey)
     this.scene.physics.add.existing(this)
   }
 
+  private makeAnimMap (key: string) {
+    this.animMap = {
+      up: `${key}-${AnimStates.UP}`,
+      upWalk: `${key}-${AnimStates.UP_WALK}`,
+      down: `${key}-${AnimStates.DOWN}`,
+      downWalk: `${key}-${AnimStates.DOWN_WALK}`,
+      left: `${key}-${AnimStates.LEFT}`,
+      leftWalk: `${key}-${AnimStates.LEFT_WALK}`,
+      right: `${key}-${AnimStates.RIGHT}`,
+      rightWalk: `${key}-${AnimStates.RIGHT_WALK}`
+    }
+  }
   protected preUpdate (time: number, delta: number): void {
     super.preUpdate(time, delta)
     const dirChanged = this.facing !== this.prevFacing

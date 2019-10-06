@@ -1,5 +1,5 @@
-import { Character, CharState } from './Character'
-import { MainAnim } from '../scenes/GameScene'
+import { Character } from './Character'
+import { CharKey } from '../scenes/GameScene'
 
 export enum Direction {
   UP,
@@ -18,16 +18,7 @@ export class Player extends Character {
   }
 
   constructor (scene: Phaser.Scene, x: number, y: number, texture: string) {
-    super(scene, x, y, texture, {
-      up: MainAnim.UP,
-      down: MainAnim.DOWN,
-      right: MainAnim.RIGHT,
-      left: MainAnim.LEFT,
-      upWalk: MainAnim.UP_WALK,
-      downWalk: MainAnim.DOWN_WALK,
-      rightWalk: MainAnim.RIGHT_WALK,
-      leftWalk: MainAnim.LEFT_WALK
-    })
+    super(scene, x, y, texture, CharKey.PLAYER)
     this.initInput()
   }
 

@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/wyattis/frankenstore#readme",
   "dependencies": {
+    "easystarjs": "^0.4.3",
     "goodish": "0.0.7",
     "phaser": "^3.19.0"
   },

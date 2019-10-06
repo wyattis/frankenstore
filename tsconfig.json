@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "outDir": "./docs/",
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es5",
+    "strict": true,
+    "lib": ["dom", "es2015", "es2016"],
+    "sourceMap": true
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

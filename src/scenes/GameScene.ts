@@ -33,11 +33,11 @@ const tileSheetKey = 'tiles'
 export default class GameScene extends Phaser.Scene {
 
   public name = 'game'
+  public map!: Phaser.Tilemaps.Tilemap
+  public pathFinder!: PathFinder
   private player!: Player
   private shoppers: Shopper[] = []
-  private map!: Phaser.Tilemaps.Tilemap
   private layers: (DynamicTilemapLayer | StaticTilemapLayer)[] = []
-  private pathFinder!: PathFinder
 
 
   preload () {
@@ -111,7 +111,7 @@ export default class GameScene extends Phaser.Scene {
     this.add.existing(this.player)
 
     for (let i = 0; i < 1; i++) {
-      const shopper = new Shopper(this, randomInt(0, 200), randomInt(0, 200), SpriteSheet.SHOPPER, CharKey.SHOPPER, this.pathFinder)
+      const shopper = new Shopper(this, randomInt(0, 200), randomInt(0, 200), SpriteSheet.SHOPPER, CharKey.SHOPPER)
       this.add.existing(shopper)
       this.shoppers.push(shopper)
     }

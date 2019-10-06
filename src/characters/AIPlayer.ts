@@ -1,15 +1,17 @@
 import { Character } from './Character'
-import PathFinder, { Point } from '../util/PathFinder'
-import { CharKey } from '../scenes/GameScene'
+import PathFinder from '../util/PathFinder'
+import GameScene, { CharKey } from '../scenes/GameScene'
 
 
 export abstract class AIPlayer extends Character {
 
   private path!: Phaser.Curves.Path | null
   private tweenTarget = { t: 0 }
+  protected pathFinder: PathFinder
 
-  constructor (scene: Phaser.Scene, x: number, y: number, texture: string, charKey: CharKey, protected pathFinder: PathFinder) {
+  constructor (scene: GameScene, x: number, y: number, texture: string, charKey: CharKey) {
     super(scene, x, y, texture, charKey)
+    this.pathFinder = scene.pathFinder
   }
 
   async moveTo (point: { x: number, y: number }) {
@@ -24,15 +26,13 @@ export abstract class AIPlayer extends Character {
         const pathPoint = this.pathFinder.cellPointToPoint(cell)
         this.path.lineTo(pathPoint.x, pathPoint.y)
       }
-      const tweenDuration = cellPath.length * this.walkSpeed
+      const tweenDuration = cellPath.length * this.walkSpeed / 2
       this.scene.tweens.add({
         targets: this.tweenTarget,
         props: {
           t: { value: 1, duration: tweenDuration }
         },
-        onStart: () => {console.log('tween start')},
         onComplete: () => {
-          console.log('tween complete')
           this.path = null
         }
       })

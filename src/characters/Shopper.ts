@@ -1,18 +1,17 @@
 import { AIPlayer } from './AIPlayer'
-import PathFinder from '../util/PathFinder'
 import { randomInt } from 'goodish'
-import { CharKey } from '../scenes/GameScene'
+import GameScene, { CharKey } from '../scenes/GameScene'
 
 export class Shopper extends AIPlayer {
 
-  constructor (scene: Phaser.Scene, x: number, y: number, texture: string, charKey: CharKey, pathFinder: PathFinder) {
+  constructor (scene: GameScene, x: number, y: number, texture: string, charKey: CharKey) {
 
-    super(scene, x, y, texture, charKey, pathFinder)
+    super(scene, x, y, texture, charKey)
 
     scene.time.delayedCall(2000, () => {
       this.moveTo({
-        x: randomInt(0, 300),
-        y: randomInt(0, 300)
+        x: randomInt(0, 30) * scene.map.tileWidth,
+        y: randomInt(0, 30) * scene.map.tileHeight
       })
     }, [], null)
 

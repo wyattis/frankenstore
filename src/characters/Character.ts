@@ -11,7 +11,7 @@ export class Character extends Phaser.GameObjects.Sprite {
   private animMap!: CharacterStateAnimMap
 
   public body!: Phaser.Physics.Arcade.Body
-  public walkSpeed: number = 300
+  public walkSpeed: number = 200
 
   constructor (scene: Phaser.Scene, x: number, y: number, texture: string, charKey: CharKey) {
     super(scene, x, y, texture)

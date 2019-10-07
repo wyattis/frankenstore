@@ -10,7 +10,7 @@ export class GameStateController {
 
   addShopper () {
     this.scene.addShopper()
-    this.shopperDelay -= 1000
+    this.shopperDelay -= (this.shopperDelay / 30000) * 1000
     this.scene.time.delayedCall(this.shopperDelay, this.addShopper, [], this)
   }
 

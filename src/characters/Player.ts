@@ -1,9 +1,11 @@
-import { Character } from './Character'
-import { CharKey } from '../types/PhaserKeys'
+import { CharKey, TileTypes } from '../types/PhaserKeys'
 import { MovableCharacter } from './MovableCharacter'
 import GameScene from '../scenes/GameScene'
 import { ActionableCharacter } from './ActionableCharacter'
 import { Action } from '../types/Action'
+import Tile = Phaser.Tilemaps.Tile
+import { GameEvents } from '../types/GameEvents'
+import { distanceSquaredBetweenPoints } from '../util/M'
 
 export enum Direction {
   UP,
@@ -14,29 +16,27 @@ export enum Direction {
 
 export class Player extends ActionableCharacter {
 
-  private keys!: {
-    W: Phaser.Input.Keyboard.Key,
-    A: Phaser.Input.Keyboard.Key,
-    S: Phaser.Input.Keyboard.Key,
-    D: Phaser.Input.Keyboard.Key,
-  }
-
   actions = {
     [Action.KILL]: this.killChar.bind(this),
-    [Action.HELP]: this.helpChar.bind(this)
+    [Action.HELP]: this.helpChar.bind(this),
+    [Action.BUILD]: this.buildFranken.bind(this)
   }
 
-  constructor (scene: GameScene, x: number, y: number, texture: string) {
+  private actionRadius2: number
+
+  constructor (public scene: GameScene, x: number, y: number, texture: string) {
     super(scene, x, y, texture, CharKey.PLAYER)
-    this.initInput()
+    this.actionRadius2 = Math.pow(3 * Math.max(this.scene.map.tileWidth, this.scene.map.tileHeight), 2)
   }
 
-  initInput () {
-    this.keys = {
-      W: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
-      A: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
-      S: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
-      D: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
+  buildFranken () {
+    const d = distanceSquaredBetweenPoints(this.scene.tableLocation, this)
+    console.log(d, this.actionRadius2)
+    if (d > this.actionRadius2) {
+      this.moveTo(this.scene.tableLocation)
+    } else {
+      console.log('build franken')
+      this.scene.events.emit(GameEvents.BUILD_FRANKEN)
     }
   }
 
@@ -50,6 +50,15 @@ export class Player extends ActionableCharacter {
 
   actOn (char: MovableCharacter) {
     console.log('act on', char)
+  }
+
+  actOnTile (tile: Tile) {
+    console.log('act on tile', tile)
+    switch (tile.properties.type) {
+      case TileTypes.OPERATING_TABLE:
+        this.buildFranken()
+        break
+    }
   }
 
   // preUpdate (time: number, delta: number) {

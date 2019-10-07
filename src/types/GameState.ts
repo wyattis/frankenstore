@@ -3,7 +3,8 @@ export interface GameState {
   shoppers: ShopperState[]
   frankens: FrankenState[]
   money: number
-  inventory: number
+  rearInventory: number
+  frontInventory: number
   bodyParts: number
 }
 
@@ -23,14 +24,9 @@ export interface FrankenState {
 export enum FrankenAssignment {
   MANNEQUIN,
   RESTOCK,
-  JANITOR
-}
-
-export enum SmartFrankeAssignment {
+  JANITOR,
   REGISTER,
-  SECURITY
-}
-
-export enum FinalFrankenAssignment {
-  MANAGER
+  SECURITY,
+  MANAGER,
+  IDLE
 }

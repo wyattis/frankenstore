@@ -36,6 +36,7 @@ export class MainInputController {
   public enableCharacter (char: MovableCharacter) {
     char.setInteractive()
     char.on('pointerdown', (pointer: Pointer) => {
+      if (pointer.button !== 0) return
       this.canClickMap = false
       this.clickCharacter(char)
     }, null)
@@ -56,6 +57,12 @@ export class MainInputController {
   public clickMap (pointer: Pointer) {
     console.log('map click', this)
     if (this.selectedCharacter) {
+      const tiles = this.scene.map.getTilesWithinWorldXY(pointer.worldX, pointer.worldY, 1, 1)
+      for (const tile of tiles) {
+        if (tile.properties && tile.properties.type) {
+          return this.selectedCharacter.actOnTile(tile)
+        }
+      }
       console.log('move player to', pointer)
       this.selectedCharacter.moveTo({
         x: pointer.worldX,

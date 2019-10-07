@@ -1,6 +1,8 @@
 export enum SpriteSheet {
   PLAYER = 'player',
-  SHOPPER = 'shopper'
+  SHOPPER = 'shopper',
+  FRANKEN_ZAP = 'franken-zap',
+  FRANKEN = 'franken'
 }
 export enum AnimStates {
   LEFT = 'left',
@@ -11,6 +13,11 @@ export enum AnimStates {
   RIGHT_WALK = 'right-walk',
   UP_WALK = 'up-walk',
   DOWN_WALK = 'down-walk'
+}
+
+export enum AnimKeys {
+  FRANKEN_LAY = 'lay',
+  FRANKEN_ZAP = 'zap'
 }
 
 export enum CharKey {

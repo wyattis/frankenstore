@@ -19,19 +19,20 @@ export class Shopper extends AICharacter {
   }
 
   makeDecision () {
+    if (this.scene.shoppers.length >= 10) return
     if (this.inventory === 0) {
       const clothingRack = randomFrom(this.scene.staticObjects.frontShelves)
       // this.moveToTile({ x: randomInt(0, this.scene.map.width - 1), y: randomInt(0, this.scene.map.height - 1) })
       if (clothingRack.properties.type === TileTypes.VERTSHELF) {
-        this.moveToTile({
-          x: clothingRack.x - 3,
+        this.moveTo(this.pathFinder.cellPointToPoint({
+          x: randomFrom([clothingRack.x - 3, clothingRack.x + 3]),
           y: clothingRack.y
-        })
+        }))
       } else {
-        this.moveToTile({
+        this.moveTo(this.pathFinder.cellPointToPoint({
           x: clothingRack.x,
           y: clothingRack.y + 3
-        })
+        }))
       }
     }
   }

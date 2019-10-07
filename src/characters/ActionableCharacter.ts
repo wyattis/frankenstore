@@ -1,5 +1,6 @@
 import { Action } from '../types/Action'
 import { MovableCharacter } from './MovableCharacter'
+import Tile = Phaser.Tilemaps.Tile
 
 export abstract class ActionableCharacter extends MovableCharacter {
 
@@ -7,6 +8,7 @@ export abstract class ActionableCharacter extends MovableCharacter {
   abstract actions: { [key in Action]?: (...u: any[]) => void }
 
   abstract actOn (char: MovableCharacter): void
+  abstract actOnTile (tile: Tile): void
 
   act (key: Action, ...args: any[]) {
     if (this.actions.hasOwnProperty(key)) {

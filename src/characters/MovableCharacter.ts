@@ -9,50 +9,30 @@ export abstract class MovableCharacter extends Character {
 
   private path: PathBins = new PathBins()
   protected pathFinder: PathFinder
-
+  public isFollowingPath: boolean = false
 
   constructor (scene: GameScene, x: number, y: number, texture: string, charKey: CharKey) {
     super(scene, x, y, texture, charKey)
     this.pathFinder = scene.pathFinder
   }
 
-  async moveTo (point: { x: number, y: number }) {
-    console.log('moving from', this.x, this.y, 'to', point.x, point.y)
-    try {
-      const cellPath = await this.pathFinder.findPathPixels({
-        x: this.x,
-        y: this.y
-      }, point)
-      this.path.reset()
-      for (const cell of cellPath) {
-        const pathPoint = this.pathFinder.cellPointToPoint(cell)
-        this.path.addPoint(pathPoint)
-      }
-      console.log('path', this.path)
-    } catch (err) {
-      console.error(err)
-    }
-  }
+  onPathComplete () {}
 
-  async moveToTile (point: { x: number, y: number }) {
-    console.log('moving from', this.x, this.y, 'to', point.x, point.y)
-    try {
-      const cellPath = await this.pathFinder.findPath(this.pathFinder.pointToCell({
-        x: this.x,
-        y: this.y
-      }), {
-        row: point.x,
-        col: point.y
-      })
-      this.path.reset()
-      for (const cell of cellPath) {
-        const pathPoint = this.pathFinder.cellPointToPoint(cell)
-        this.path.addPoint(pathPoint)
-      }
-      console.log('path', this.path)
-    } catch (err) {
-      console.error(err)
+  onPathReset () {}
+
+  async moveTo (point: { x: number, y: number }) {
+    const cellPath = await this.pathFinder.findPathPixels({
+      x: this.x,
+      y: this.y
+    }, point)
+    this.path.reset()
+    for (const cell of cellPath) {
+      const pathPoint = this.pathFinder.cellPointToPoint(cell)
+      this.path.addPoint(pathPoint)
     }
+    console.log(this.constructor.name, 'path', this.path)
+    this.isFollowingPath = true
+    this.onPathReset()
   }
 
   preUpdate (time: number, delta: number) {
@@ -75,8 +55,10 @@ export abstract class MovableCharacter extends Character {
           this.body.setVelocityY(0)
         }
       }
-    } else {
-      this.body.setVelocity(0)
+    } else if (this.isFollowingPath) {
+      this.isFollowingPath = false
+      this.body.setVelocity(0, 0)
+      this.onPathComplete()
     }
   }
 

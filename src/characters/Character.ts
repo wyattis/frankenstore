@@ -16,6 +16,7 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
     this.makeAnimMap(charKey)
     this.anims.play(this.animMap.down)
     this.scene.physics.add.existing(this)
+    this.setOrigin(0, 1)
   }
 
   private makeAnimMap (key: string) {

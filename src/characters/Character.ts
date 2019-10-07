@@ -10,13 +10,16 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
 
   public body!: Phaser.Physics.Arcade.Body
   public walkSpeed: number = 100
+  private tileHeight: number
 
-  constructor (scene: GameScene, x: number, y: number, texture: string, charKey: CharKey) {
+  constructor (public scene: GameScene, x: number, y: number, texture: string, charKey: CharKey) {
     super(scene, x, y, texture, charKey)
     this.makeAnimMap(charKey)
     this.anims.play(this.animMap.down)
     this.scene.physics.add.existing(this)
-    this.setOrigin(0, 1)
+    this.setOrigin(0.2, 1)
+    this.setDepth(2)
+    this.tileHeight = scene.map.tileHeight
   }
 
   private makeAnimMap (key: string) {
@@ -57,6 +60,9 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
         this.anims.play(this.animMap.left)
       }
     }
+
+    this.setDepth(this.scene.pathFinder.pixelsToTile(this.y + 8, this.tileHeight))
+    // console.log('depth', this.constructor.name, this.depth)
 
   }
 

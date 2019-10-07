@@ -6,6 +6,7 @@ export interface GameState {
   rearInventory: number
   frontInventory: number
   bodyParts: number
+  price: number
 }
 
 export interface ShopperState {

@@ -6,6 +6,10 @@ import { Action } from '../types/Action'
 import Tile = Phaser.Tilemaps.Tile
 import { GameEvents } from '../types/GameEvents'
 import { distanceSquaredBetweenPoints } from '../util/M'
+import { Shopper } from './Shopper'
+import GameObject = Phaser.GameObjects.GameObject
+import Mess from '../objects/Mess'
+import { InteractiveTile } from '../types/InteractiveTile'
 
 export enum Direction {
   UP,
@@ -26,7 +30,7 @@ export class Player extends ActionableCharacter {
 
   constructor (public scene: GameScene, x: number, y: number, texture: string) {
     super(scene, x, y, texture, CharKey.PLAYER)
-    this.actionRadius2 = Math.pow(3 * Math.max(this.scene.map.tileWidth, this.scene.map.tileHeight), 2)
+    this.actionRadius2 = Math.pow(2 * Math.max(this.scene.map.tileWidth, this.scene.map.tileHeight), 2)
   }
 
   buildFranken () {
@@ -48,16 +52,34 @@ export class Player extends ActionableCharacter {
 
   }
 
-  actOn (char: MovableCharacter) {
-    console.log('act on', char)
+  actOn (obj: Phaser.GameObjects.Container) {
+    console.log('act on', obj)
+    const closeEnoughToAct = distanceSquaredBetweenPoints(this, obj) < this.actionRadius2
+    if (obj instanceof Shopper) {
+      if (closeEnoughToAct) {
+        obj.kill()
+      } else {
+        this.moveTo(obj)
+      }
+    } else if (obj instanceof Mess) {
+      if (closeEnoughToAct) {
+        obj.interact()
+      } else {
+        this.moveTo(obj)
+      }
+    } else {
+      this.moveTo(obj)
+    }
   }
 
-  actOnTile (tile: Tile) {
+  actOnTile (tile: InteractiveTile) {
     console.log('act on tile', tile)
     switch (tile.properties.type) {
       case TileTypes.OPERATING_TABLE:
         this.buildFranken()
         break
+      default:
+        this.moveToTile(tile)
     }
   }
 

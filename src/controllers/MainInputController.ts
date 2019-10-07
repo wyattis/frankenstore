@@ -3,6 +3,8 @@ import Pointer = Phaser.Input.Pointer
 import { ActionableCharacter } from '../characters/ActionableCharacter'
 import { MovableCharacter } from '../characters/MovableCharacter'
 import { GameEvents } from '../types/GameEvents'
+import { Clickable } from '../types/Clickable'
+import GameObject = Phaser.GameObjects.GameObject
 
 export class MainInputController {
 
@@ -40,6 +42,17 @@ export class MainInputController {
       this.canClickMap = false
       this.clickCharacter(char)
     }, null)
+  }
+
+  public enableObject (obj: GameObject) {
+    obj.setInteractive()
+    obj.on('pointerdown', (pointer: Pointer) => {
+      if (pointer.button !== 0) return
+      this.canClickMap = false
+      if (this.selectedCharacter) {
+         this.selectedCharacter.actOn(obj)
+      }
+    })
   }
 
   public clickCharacter (char: MovableCharacter | ActionableCharacter) {

@@ -15,9 +15,9 @@ export class Franken extends AICharacter {
 
   constructor (public scene: GameScene, x: number, y: number, texture: string, charKey: CharKey) {
     super(scene, x, y, texture, charKey)
-    if (IS_DEV) {
-      this.controllerState = randomFrom([FrankenAssignment.IDLE, FrankenAssignment.RESTOCK, FrankenAssignment.REGISTER])
-    }
+    // if (IS_DEV) {
+    //   this.controllerState = randomFrom([FrankenAssignment.IDLE, FrankenAssignment.RESTOCK, FrankenAssignment.REGISTER])
+    // }
   }
 
   makeDecision (): void {
@@ -58,7 +58,7 @@ export class Franken extends AICharacter {
   async register () {
     const AT_REGISTER = 'at register'
     if (!this.currentAction) {
-      await this.moveTo(this.scene.staticObjects.cashRegister[1])
+      await this.moveToTile(this.scene.staticObjects.cashRegister[1])
       this.currentAction = AT_REGISTER
     }
   }
@@ -67,8 +67,10 @@ export class Franken extends AICharacter {
     const GETTING_STOCK = 'getting stock'
     const MOVING_STOCK = 'moving stock'
     console.log('restock', this.currentAction)
-    if (this.scene.gameState.rearInventory === 0) {
-      this.controllerState = FrankenAssignment.IDLE
+    if (!IS_DEV) {
+      if (this.scene.gameState.rearInventory === 0) {
+        this.controllerState = FrankenAssignment.IDLE
+      }
     }
     switch (this.currentAction) {
       case null:

@@ -3,6 +3,7 @@ import PathFinder from '../util/PathFinder'
 import GameScene from '../scenes/GameScene'
 import { PathBins } from '../util/PathBins'
 import { CharKey } from '../types/PhaserKeys'
+import { InteractiveTile } from '../types/InteractiveTile'
 
 
 export abstract class MovableCharacter extends Character {
@@ -30,7 +31,25 @@ export abstract class MovableCharacter extends Character {
       const pathPoint = this.pathFinder.cellPointToPoint(cell)
       this.path.addPoint(pathPoint)
     }
-    console.log(this.constructor.name, 'path', this.path)
+    console.log('moveTo', this.constructor.name, 'path', this.path)
+    this.isFollowingPath = true
+    this.onPathReset()
+  }
+
+  async moveToTile (tile: InteractiveTile) {
+    const cellPath = await this.pathFinder.findPathPixels({
+      x: this.x,
+      y: this.y
+    }, this.pathFinder.cellPointToPoint({
+      x: tile.charX,
+      y: tile.charY
+    }))
+    this.path.reset()
+    for (const cell of cellPath) {
+      const pathPoint = this.pathFinder.cellPointToPoint(cell)
+      this.path.addPoint(pathPoint)
+    }
+    console.log('moveToTile', this.constructor.name, 'path', this.path)
     this.isFollowingPath = true
     this.onPathReset()
   }

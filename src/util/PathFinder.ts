@@ -45,16 +45,20 @@ export default class PathFinder {
 
   public pointToCell (point: Point): Cell {
     return {
-      row: Math.floor(Math.abs(point.y) / this.tileHeight),
-      col: Math.floor(Math.abs(point.x) / this.tileWidth)
+      row: this.pixelsToTile(point.y, this.tileHeight),
+      col: this.pixelsToTile(point.x, this.tileWidth)
     }
   }
 
   public pointToCellPoint (point: Point): Point {
     return {
-      y: Math.floor(Math.abs(point.y) / this.tileHeight),
-      x: Math.floor(Math.abs(point.x) / this.tileWidth)
+      y: this.pixelsToTile(point.y, this.tileHeight),
+      x: this.pixelsToTile(point.x, this.tileWidth)
     }
+  }
+
+  public pixelsToTile (pixels: number, tileSize: number): number {
+    return Math.floor(Math.abs(pixels) / tileSize)
   }
 
   public cellPointToPoint (cellPoint: Point, offset?: Point): Point {
@@ -110,43 +114,17 @@ export default class PathFinder {
     }
   }
 
-  public findNearestClearPoint (point: Point): Point {
-    let dir = 0
+  public findNearestClearPoint (point: Point, r = 2): Point {
     let c = 0
-    let dirs = [Direction.RIGHT, Direction.DOWN, Direction.LEFT, Direction.UP]
-    let dirMoves = 1
-    let nSides = 1
-    let n = 1
-    point = { x: point.x + 1, y: point.y }
-    let pointBlocked = this.pointIsBlocked(point)
+    point = { x: point.x, y: point.y }
+    let pointBlocked = true
     while (pointBlocked && c < 100) {
-      if (dirs[dir] === Direction.RIGHT) {
-        point.x++
-      } else if (dirs[dir] === Direction.DOWN) {
-        point.y++
-      } else if (dirs[dir] === Direction.LEFT) {
-        point.x--
-      } else {
-        point.y--
-      }
-      dirMoves++
-      console.log('dir move', dir, dirMoves, nSides, n)
-      if (dirMoves >= n) {
-        nSides++
-        dir++
-        if (dir >= dirs.length) {
-          dir = 0
-        }
-        if (nSides >= 2) {
-          dirMoves = 0
-          nSides = 0
-          n++
-        }
-      }
+      point.x += randomInt(-r, r + 1)
+      point.y += randomInt(-r, r + 1)
       c++
       pointBlocked = this.pointIsBlocked(point)
     }
-    console.log('found cell in', c, pointBlocked)
+    console.log('found cell in', c, point)
     return point
   }
 

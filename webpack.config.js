@@ -10,7 +10,7 @@ module.exports = {
       use: 'ts-loader',
       exclude: /node_modules/
     }, {
-      test: /\.(jpg|png|jpeg)$/,
+      test: /\.(jpg|png|jpeg|mp3|wav)$/,
       use: 'file-loader'
     }, {
       test: /\.json$/,

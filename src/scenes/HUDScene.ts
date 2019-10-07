@@ -32,7 +32,8 @@ export default class HUDScene extends Phaser.Scene {
   private boxPadding = 20
   private textPadding = 10
 
-  private textBox!: any
+  private introTextBox!: any
+  private lossTextBox!: any
 
   public rexUI!: any
 
@@ -66,7 +67,7 @@ export default class HUDScene extends Phaser.Scene {
     this.workersText = this.add.text(200, 30, 'Workers: 0')
 
     this.moneyText = this.add.text(400, 10, 'Money: 0')
-    this.selectedText = this.add.text(400, 30, 'Selected: none')
+    this.selectedText = this.add.text(400, 30, `Selected: ${this.gameScene.mainInputController.selectedCharacter && this.gameScene.mainInputController.selectedCharacter.constructor.name}`)
 
     if (IS_DEV) {
       this.sound.mute = true
@@ -83,7 +84,7 @@ export default class HUDScene extends Phaser.Scene {
     })
     this.introButton = this.add.image(650, 25, SpriteSheet.INFO, 0)
     this.introButton.setInteractive().on('pointerup', () => {
-      if (!this.textBox.visible) {
+      if (!this.introTextBox.visible) {
         this.showIntro()
       }
     })
@@ -111,16 +112,16 @@ export default class HUDScene extends Phaser.Scene {
     this.makeAudio()
     this.makeHud()
     this.makeListeners()
-    this.makeIntro()
+    this.makeTextBoxes()
     this.showIntro()
   }
 
-  makeIntro () {
+  makeTextBoxes () {
     const boxHeight = this.cameras.main.height / 4
     const boxWidth = this.cameras.main.width * 2 / 3
     const centerX = this.cameras.main.width / 2
     const centerY = this.cameras.main.height / 2
-    this.textBox = this.rexUI.add.textBox({
+    this.introTextBox = this.rexUI.add.textBox({
       x: centerX - boxWidth / 2,
       y: centerY - boxHeight / 2,
       background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 20, this.boxColor),
@@ -142,20 +143,54 @@ export default class HUDScene extends Phaser.Scene {
       .layout()
       .setInteractive()
 
-    this.textBox.on('pointerup', () => {
-      if (this.textBox.isTyping) {
-        this.textBox.stop(true)
+    this.introTextBox.on('pointerup', () => {
+      if (this.introTextBox.isTyping) {
+        this.introTextBox.stop(true)
       } else {
-        this.textBox.setVisible(false)
-        this.textBox.setActive(false)
+        this.introTextBox.setVisible(false)
+        this.introTextBox.setActive(false)
       }
     })
+
+    this.lossTextBox = this.rexUI.add.textBox({
+      x: centerX - boxWidth / 2,
+      y: centerY - boxHeight / 2,
+      background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 20, this.boxColor),
+      space: {
+        left: this.boxPadding,
+        right: this.boxPadding,
+        top: this.boxPadding,
+        text: this.textPadding
+      },
+      text: this.rexUI.add.BBCodeText(0, 0, '', {
+        fixedWidth: boxWidth,
+        fixedHeight: boxHeight,
+        wrap: {
+          mode: 'word',
+          width: boxWidth - this.boxPadding * 2
+        }
+      })
+    }).setOrigin(0).layout().setInteractive().setVisible(false).setActive(false)
+
+  }
+
+  showLoss () {
+    this.lossTextBox.setVisible(true).setActive(true)
+    this.lossTextBox.on('pointerup', () => {
+      if (this.lossTextBox.isTyping) {
+        this.lossTextBox.stop(true)
+      } else {
+        this.scene.stop()
+        this.gameScene.scene.restart()
+      }
+    })
+    this.lossTextBox.start(`You weren't able to stay afloat! Be careful out there! You don't want to get caught!`, 30)
   }
 
   showIntro () {
-    this.textBox.setVisible(true)
-    this.textBox.setActive(true)
-    this.textBox.start(`It's the grand opening of "Shirts for money"! You don't have any workers or inventory. How can you make ends meet? You have to pay for your inventory shipment soon, try to make some money by talking to customers. \n\nUse the mouse to select the shopkeeper and move him around. Click on objects around the map to interact with them.`, 30)
+    this.introTextBox.setVisible(true)
+    this.introTextBox.setActive(true)
+    this.introTextBox.start(`It's the grand opening of "Shirts for money"! You don't have any workers or inventory. How can you make ends meet? You have to pay for your inventory shipment soon, try to make some money by talking to customers. \n\nUse the mouse to select the shopkeeper and move him around. Click on objects around the map to interact with them.`, 30)
   }
 
   makeAudio () {
@@ -225,6 +260,19 @@ export default class HUDScene extends Phaser.Scene {
     this.gameScene.events.on(GameEvents.FRANK_BUILT, () => {
       const sound = randomFrom(this.zaps)
       sound.play()
+      gameState.bodyParts -= 6
+      gameState.money -= 10
+      gameState.rearInventory -= 1
+      this.updateBodyParts()
+      this.updateMoney()
+      this.updateStock()
+      if (gameState.money < 0) {
+        this.gameScene.events.emit(GameEvents.LOSS)
+      }
+    })
+    this.gameScene.events.on(GameEvents.LOSS, () => {
+      this.gameScene.pause()
+      this.showLoss()
     })
   }
 

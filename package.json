@@ -8,7 +8,8 @@
     "start": "webpack-dev-server --config=webpack.config.js",
     "build": "webpack --config=webpack.config.js",
     "dev": "cross-env NODE_ENV=development npm run build",
-    "prod": "node ./fixmap.js && cross-env NODE_ENV=production npm run build"
+    "extrude": "tile-extruder --tileWidth 16 --tileHeight 16 --input ./assets/images/frankensheet.png --output ./assets/images/frankensheet-extruded.png",
+    "prod": "npm run extrude && rm -rf docs/ && node ./fixmap.js && cross-env NODE_ENV=production npm run build"
   },
   "repository": {
     "type": "git",

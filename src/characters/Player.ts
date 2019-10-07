@@ -1,4 +1,4 @@
-import { CharKey, TileTypes } from '../types/PhaserKeys'
+import { AnimKeys, AnimStates, CharKey, TileTypes } from '../types/PhaserKeys'
 import { MovableCharacter } from './MovableCharacter'
 import GameScene from '../scenes/GameScene'
 import { ActionableCharacter } from './ActionableCharacter'
@@ -11,6 +11,7 @@ import GameObject = Phaser.GameObjects.GameObject
 import Mess from '../objects/Mess'
 import { InteractiveTile } from '../types/InteractiveTile'
 import ANIMATION_COMPLETE = Phaser.Animations.Events.ANIMATION_COMPLETE
+import { Point } from '../types/Geom'
 
 export enum Direction {
   UP,
@@ -28,6 +29,7 @@ export class Player extends ActionableCharacter {
   }
 
   private actionRadius2: number
+  private actionState: string = 'idle'
 
   constructor (public scene: GameScene, x: number, y: number, texture: string) {
     super(scene, x, y, texture, CharKey.PLAYER)
@@ -45,35 +47,44 @@ export class Player extends ActionableCharacter {
     }
   }
 
-  killChar (char: Shopper) {
+  async killChar (char: Shopper) {
+    console.log('Player kill char', char)
+    if (this.actionState === 'kill char') return
+    this.actionState = 'kill char'
     const UP_KEY = `${this.charKey}-stab-up`
     const DOWN_KEY = `${this.charKey}-stab-down`
-    char.isLocked = true
-    let key: string
-    if (char.y > this.y) {
-      key = UP_KEY
-      this.moveTo({
-        x: char.x,
-        y: char.y + 1
+    char.lock()
+    let movePoint: Point = {
+      x: char.x,
+      y: char.y
+    }
+    try {
+      await this.moveTo(movePoint)
+      this.once(CharacterEvent.PATH_COMPLETE, () => {
+        console.log('Player path complete')
+        this.stab(`${this.charKey}-${AnimStates.DOWN}`, DOWN_KEY, char)
       })
-    } else {
-      key = DOWN_KEY
-      this.moveTo({
-        x: char.x,
-        y: char.y - 1
-      })
+    } catch (err) {
+      console.log('Skipping player movement')
+      this.stab(`${this.charKey}-${AnimStates.DOWN}`, DOWN_KEY, char)
     }
 
-    this.once(CharacterEvent.PATH_COMPLETE, () => {
-      this.blockStateChange = true
-      this.on(`animationcomplete-${key}`, () => {
-        char.isLocked = false
-        char.kill()
-      })
-      this.isLocked = true
-      this.anims.play(key, true)
-    })
+  }
 
+  stab (dirAnimKey: string, stabKey: string, char: Shopper) {
+    console.log('turning player', dirAnimKey)
+    this.blockStateChange = true
+    this.once('animationcomplete', () => {
+      this.scene.time.delayedCall(1, () => {
+        this.once(`animationcomplete-${stabKey}`, () => {
+          this.blockStateChange = false
+          char.kill()
+          this.actionState = 'idle'
+        })
+        this.play(stabKey)
+      }, [], null)
+    })
+    this.play(dirAnimKey, false)
   }
 
   helpChar (char: MovableCharacter) {

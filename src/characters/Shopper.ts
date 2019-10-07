@@ -23,7 +23,7 @@ export class Shopper extends AICharacter {
   public leaveProbability = 0.3
   public multiPurchaseProbability = 0.3
   public deferredDecisionTime = 5 * 1000
-  private deferredEvent!: TimerEvent
+  private deferredEvent!: TimerEvent | null
   private currentAction: string | null = null
 
   constructor (public scene: GameScene, x: number, y: number, texture: string, charKey: CharKey) {
@@ -84,17 +84,19 @@ export class Shopper extends AICharacter {
 
   kill () {
     console.log('kill shopper')
+    new Mess(this.scene, this.x, this.y)
     this.currentAction = null
     this.stopDecisions()
-    new Mess(this.scene, this.x, this.y)
     this.destroy(true)
-    // TODO: Animate the death
+    this.setVisible(false)
+    this.setActive(false)
   }
 
   stopDecisions () {
     this.isDeciding = false
     if (this.deferredEvent) {
       this.deferredEvent.destroy()
+      this.deferredEvent = null
     }
   }
 

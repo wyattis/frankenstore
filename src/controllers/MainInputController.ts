@@ -5,6 +5,8 @@ import { MovableCharacter } from '../characters/MovableCharacter'
 import { GameEvents } from '../types/GameEvents'
 import { Clickable } from '../types/Clickable'
 import GameObject = Phaser.GameObjects.GameObject
+import { Player } from '../characters/Player'
+import { Action } from '../types/Action'
 
 export class MainInputController {
 
@@ -28,6 +30,11 @@ export class MainInputController {
         this.deselect()
       }
     })
+  }
+
+  public select (char: ActionableCharacter) {
+    this.selectedCharacter = char
+    this.scene.events.emit(GameEvents.SELECT, char)
   }
 
   public deselect () {
@@ -62,8 +69,7 @@ export class MainInputController {
       if (this.selectedCharacter) {
         this.selectedCharacter.actOn(char)
       } else if (char instanceof ActionableCharacter && char.isSelectable) {
-        this.selectedCharacter = char
-        this.scene.events.emit(GameEvents.SELECT, char)
+        this.select(char)
       }
     }
   }

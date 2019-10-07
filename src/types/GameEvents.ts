@@ -11,5 +11,7 @@ export enum GameEvents {
   RETRIEVE_PARTS = 'retrieve parts',
   CUSTOMER_ENTERS = 'customer enter',
   CUSTOMER_LEAVE = 'customer leave',
-  FRANK_BUILT = 'frank built'
+  FRANK_BUILT = 'frank built',
+  LOSS = 'debt',
+  WIN = 'win'
 }

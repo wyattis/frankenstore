@@ -39,7 +39,7 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
 
   preUpdate (time: number, delta: number): void {
     super.preUpdate(time, delta)
-    if (this.isLocked) return
+    // if (this.isLocked) return
     this.setDepth(this.scene.pathFinder.pixelsToTile(this.y + 8, this.tileHeight))
 
     /**

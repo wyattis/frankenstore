@@ -58,7 +58,6 @@ export default class GameScene extends Phaser.Scene {
       bodyParts: 0,
       price: 10
     } as GameState
-    this.scene.launch(SceneKey.HUD)
   }
 
   initDebug () {
@@ -121,6 +120,7 @@ export default class GameScene extends Phaser.Scene {
         frameWidth: 16,
         frameHeight: 16
       })
+      this.load.tilemapTiledJSON(mapKey, require('../../assets/maps/shop.json'))
     } else {
       this.load.spritesheet(SpriteSheet.TILESHEET, require('../../assets/images/frankensheet-extruded.png'), {
         frameWidth: 16,
@@ -128,11 +128,13 @@ export default class GameScene extends Phaser.Scene {
         spacing: 2,
         margin: 1
       })
+      this.load.tilemapTiledJSON(mapKey, require('../../assets/maps/shop-extruded.json'))
     }
-    this.load.tilemapTiledJSON(mapKey, require('../../assets/maps/shop.json'))
+
   }
 
   create () {
+    this.scene.launch(SceneKey.HUD)
     this.createAnimations()
     this.initializeInput()
     this.makeMap()
@@ -146,7 +148,7 @@ export default class GameScene extends Phaser.Scene {
     const controller = new GameStateController(this)
     this.initializeEvents()
     if (IS_DEV) {
-      this.initDebug()
+      // this.initDebug()
     }
   }
 
@@ -330,6 +332,7 @@ export default class GameScene extends Phaser.Scene {
     this.shoppers = []
     this.tableFranken = this.add.sprite(this.tableLocation.x + this.map.tileWidth * 1.5, this.tableLocation.y - this.map.tileHeight * 2.1, SpriteSheet.FRANKEN_ZAP).setVisible(false)
     this.tableFranken.setDepth(10)
+    this.mainInputController.select(this.player)
   }
 
   initializeCollision () {

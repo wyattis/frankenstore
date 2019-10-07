@@ -1,4 +1,4 @@
-import { AudioKeys, SceneKey } from '../types/PhaserKeys'
+import { AudioKeys, SceneKey, SpriteSheet } from '../types/PhaserKeys'
 import GameScene from './GameScene'
 import { GameEvents } from '../types/GameEvents'
 import { Character } from '../characters/Character'
@@ -15,12 +15,14 @@ export default class HUDScene extends Phaser.Scene {
   private displayStockText!: Phaser.GameObjects.Text
   private workersText!: Phaser.GameObjects.Text
   private moneyText!: Phaser.GameObjects.Text
-  private selectedText!: Phaser.GameObjects.Text
+  private muteButton!: Phaser.GameObjects.Image
 
+  private selectedText!: Phaser.GameObjects.Text
   private theme!: Phaser.Sound.BaseSound
   private register!: Phaser.Sound.BaseSound
   private death!: Phaser.Sound.BaseSound
   private doors: Phaser.Sound.BaseSound[] = []
+
   private zaps: Phaser.Sound.BaseSound[] = []
 
   constructor () {
@@ -28,7 +30,12 @@ export default class HUDScene extends Phaser.Scene {
   }
 
   preload () {
-    this.load.audio(AudioKeys.THEME, require('../../assets/audio/frankenstein - edgar winter group.mp3'))}
+    this.load.audio(AudioKeys.THEME, require('../../assets/audio/frankenstein - edgar winter group.mp3'))
+    this.load.spritesheet(SpriteSheet.MUTE, require('../../assets/images/mute.png'), {
+      frameWidth: 32,
+      frameHeight: 32
+    })
+  }
 
   makeHud () {
     const graphics = this.add.graphics()
@@ -43,6 +50,20 @@ export default class HUDScene extends Phaser.Scene {
 
     this.moneyText = this.add.text(400, 10, 'Money: 0')
     this.selectedText = this.add.text(400, 30, 'Selected: none')
+
+    if (IS_DEV) {
+      this.sound.mute = true
+    }
+
+    this.muteButton = this.add.image(600, 25, SpriteSheet.MUTE, this.sound.mute ? 0 : 1)
+    this.muteButton.setInteractive().on('pointerup', () => {
+      this.sound.mute = !this.sound.mute
+      if (this.sound.mute) {
+        this.muteButton.setFrame(0)
+      } else {
+        this.muteButton.setFrame(1)
+      }
+    })
   }
 
   updateMoney () {
@@ -74,9 +95,7 @@ export default class HUDScene extends Phaser.Scene {
     this.theme = this.sound.add(AudioKeys.THEME, {
       loop: true
     })
-    if (!IS_DEV) {
-      this.theme.play()
-    }
+    this.theme.play()
     this.register = this.sound.add(AudioKeys.REGISTER)
     this.death = this.sound.add(AudioKeys.SHOPPER_DEATH)
     this.doors = [AudioKeys.DOOR_1, AudioKeys.DOOR_2].map(key => this.sound.add(key))

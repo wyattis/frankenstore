@@ -19,6 +19,7 @@ export class MainInputController {
         this.canClickMap = true
         return
       }
+      console.log('main map click', pointer)
       if (pointer.button === 0) {
         // Left click
         this.clickMap(pointer)
@@ -30,7 +31,7 @@ export class MainInputController {
   }
 
   public deselect () {
-    console.log('deselect')
+    console.log('main deselect')
     this.selectedCharacter = null
     this.scene.events.emit(GameEvents.DESELECT)
   }
@@ -56,7 +57,7 @@ export class MainInputController {
   }
 
   public clickCharacter (char: MovableCharacter | ActionableCharacter) {
-    console.log('clicked char', arguments)
+    console.log('main clicked char', arguments)
     if (char !== this.selectedCharacter) {
       if (this.selectedCharacter) {
         this.selectedCharacter.actOn(char)
@@ -68,15 +69,16 @@ export class MainInputController {
   }
 
   public clickMap (pointer: Pointer) {
-    console.log('map click', this)
+    console.log('main map click', this)
     if (this.selectedCharacter) {
       const tiles = this.scene.map.getTilesWithinWorldXY(pointer.worldX, pointer.worldY, 1, 1)
+      console.log('tiles', tiles)
       for (const tile of tiles) {
         if (tile.properties && tile.properties.type) {
           return this.selectedCharacter.actOnTile(tile)
         }
       }
-      console.log('move player to', pointer)
+      console.log('main move player to', pointer)
       this.selectedCharacter.moveTo({
         x: pointer.worldX,
         y: pointer.worldY

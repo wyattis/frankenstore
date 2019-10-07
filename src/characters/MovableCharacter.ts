@@ -45,8 +45,11 @@ export abstract class MovableCharacter extends Character {
       y: tile.charY
     }))
     this.path.reset()
-    for (const cell of cellPath) {
+    for (let i = 2; i < cellPath.length; i++) {
+      const cell = cellPath[i]
       const pathPoint = this.pathFinder.cellPointToPoint(cell)
+      pathPoint.x += this.pathFinder.tileWidth / 2
+      pathPoint.y += this.pathFinder.tileHeight / 2
       this.path.addPoint(pathPoint)
     }
     console.log('moveToTile', this.constructor.name, 'path', this.path)
@@ -58,12 +61,14 @@ export abstract class MovableCharacter extends Character {
     super.preUpdate(time, delta)
     if (!this.path.isDone) {
       const v = this.path.getNextDirection(this)
-      if (v) {
+      const p = this.path.getPoint()
+      if (v && p) {
         if (v.x > 0) {
           this.moveRight()
         } else if (v.x < 0) {
           this.moveLeft()
         } else {
+          this.x = p.x
           this.body.setVelocityX(0)
         }
         if (v.y > 0) {
@@ -71,6 +76,7 @@ export abstract class MovableCharacter extends Character {
         } else if (v.y < 0) {
           this.moveUp()
         } else {
+          this.y = p.y
           this.body.setVelocityY(0)
         }
       }

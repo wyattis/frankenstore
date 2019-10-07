@@ -31,6 +31,10 @@ export class PathBins {
     }
   }
 
+  getPoint (): Point | null {
+    return this.path[this.index]
+  }
+
   reset () {
     this.path = []
     this.index = 0

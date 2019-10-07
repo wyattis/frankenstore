@@ -4,7 +4,8 @@ export enum SpriteSheet {
   FRANKEN_ZAP = 'franken-zap',
   FRANKEN = 'franken',
   MESS = 'mess',
-  TILESHEET = 'tilesheet'
+  TILESHEET = 'tilesheet',
+  MUTE = 'mute'
 }
 export enum AnimStates {
   LEFT = 'left',

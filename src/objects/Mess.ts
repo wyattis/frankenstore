@@ -20,7 +20,7 @@ export default class Mess extends Phaser.GameObjects.Container {
   retrieveBodyParts () {
     this.scene.tweens.add({
       targets: this.bodyParts,
-      alpha: { value: 0, duration: 2000 },
+      alpha: { value: 0, duration: 500 },
       duration: 1000,
       onComplete: () => {
         this.bodyParts.destroy(true)
@@ -38,7 +38,7 @@ export default class Mess extends Phaser.GameObjects.Container {
   clean () {
     this.scene.tweens.add({
       targets: this.blood,
-      alpha: { value: 0, duration: 2000 },
+      alpha: { value: 0, duration: 500 },
       duration: 1000,
       onComplete: () => {
         this.destroy()

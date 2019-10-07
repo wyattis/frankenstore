@@ -3,24 +3,16 @@ import PathFinder from '../util/PathFinder'
 import { Shopper } from '../characters/Shopper'
 import { randomFrom } from 'goodish'
 import { GameState } from '../types/GameState'
-import {
-  AnimKeys,
-  AnimStates, AudioKeys,
-  CharKey,
-  mapKey,
-  SceneKey,
-  SpriteSheet,
-  TileTypes
-} from '../types/PhaserKeys'
+import { AnimKeys, AnimStates, AudioKeys, CharKey, mapKey, SceneKey, SpriteSheet, TileTypes } from '../types/PhaserKeys'
 import { MainInputController } from '../controllers/MainInputController'
 import { GameStateController } from '../controllers/GameStateController'
 import { GameEvents } from '../types/GameEvents'
 import { Point } from '../types/Geom'
 import { Franken } from '../characters/Franken'
+import { InteractiveTile } from '../types/InteractiveTile'
 import GenerateFrameNumbers = Phaser.Types.Animations.GenerateFrameNumbers
 import DynamicTilemapLayer = Phaser.Tilemaps.DynamicTilemapLayer
 import StaticTilemapLayer = Phaser.Tilemaps.StaticTilemapLayer
-import { InteractiveTile } from '../types/InteractiveTile'
 import Tile = Phaser.Tilemaps.Tile
 
 declare const IS_DEV: boolean
@@ -91,17 +83,17 @@ export default class GameScene extends Phaser.Scene {
   }
 
   loadSprites () {
-    this.load.spritesheet(SpriteSheet.PLAYER, require('../../assets/images/badass.png'), {
-      frameWidth: 19,
-      frameHeight: 29
+    this.load.spritesheet(SpriteSheet.PLAYER, require('../../assets/images/shopkeeper.png'), {
+      frameWidth: 32,
+      frameHeight: 46
     })
     this.load.spritesheet(SpriteSheet.SHOPPER, require('../../assets/images/shopper.png'), {
       frameWidth: 19,
       frameHeight: 29
     })
     this.load.spritesheet(SpriteSheet.FRANKEN, require('../../assets/images/franken.png'), {
-      frameWidth: 19,
-      frameHeight: 29
+      frameWidth: 32,
+      frameHeight: 46
     })
     this.load.spritesheet(SpriteSheet.FRANKEN_ZAP, require('../../assets/images/franken-zap.png'), {
       frameWidth: 90,
@@ -116,10 +108,19 @@ export default class GameScene extends Phaser.Scene {
   preload () {
     this.loadAudio()
     this.loadSprites()
-    this.load.spritesheet(SpriteSheet.TILESHEET, require('../../assets/images/frankensheet.png'), {
-      frameWidth: 16,
-      frameHeight: 16
-    })
+    if (IS_DEV) {
+      this.load.spritesheet(SpriteSheet.TILESHEET, require('../../assets/images/frankensheet.png'), {
+        frameWidth: 16,
+        frameHeight: 16
+      })
+    } else {
+      this.load.spritesheet(SpriteSheet.TILESHEET, require('../../assets/images/frankensheet-extruded.png'), {
+        frameWidth: 16,
+        frameHeight: 16,
+        spacing: 2,
+        margin: 1
+      })
+    }
     this.load.tilemapTiledJSON(mapKey, require('../../assets/maps/shop.json'))
   }
 
@@ -133,7 +134,7 @@ export default class GameScene extends Phaser.Scene {
     this.cameras.main.setDeadzone(16 * 8, 16 * 6)
     this.cameras.main.startFollow(this.player)
     this.cameras.main.roundPixels = true
-    this.cameras.main.zoom = 1
+    this.cameras.main.zoom = 1.5
     const controller = new GameStateController(this)
     this.initializeEvents()
     if (IS_DEV) {
@@ -238,31 +239,45 @@ export default class GameScene extends Phaser.Scene {
   }
 
   createAnimations () {
-    const mainCharAnims: [AnimStates, GenerateFrameNumbers][] = [
-      [AnimStates.UP_WALK, { start: 0, end: 2 }],
-      [AnimStates.DOWN_WALK, { start: 3, end: 5 }],
-      [AnimStates.LEFT_WALK, { start: 6, end: 8 }],
-      [AnimStates.RIGHT_WALK, { start: 9, end: 11 }],
-      [AnimStates.UP, { start: 1, end: 1 }],
-      [AnimStates.DOWN, { start: 4, end: 4 }],
-      [AnimStates.LEFT, { start: 7, end: 7 }],
-      [AnimStates.RIGHT, { start: 10, end: 10 }]
+    type Generator = [AnimStates, GenerateFrameNumbers]
+    const mainCharAnims: Generator[] = [
+      [AnimStates.UP_WALK, { start: 4, end: 7 }],
+      [AnimStates.DOWN_WALK, { start: 0, end: 3 }],
+      [AnimStates.LEFT_WALK, { start: 0, end: 3 }],
+      [AnimStates.RIGHT_WALK, { start: 4, end: 7 }],
+      [AnimStates.UP, { start: 4, end: 4 }],
+      [AnimStates.DOWN, { start: 1, end: 1 }],
+      [AnimStates.LEFT, { start: 1, end: 1 }],
+      [AnimStates.RIGHT, { start: 4, end: 4 }]
     ]
-    for (const [key, config] of mainCharAnims) {
-      for (const [charKey, spriteKey] of [[CharKey.PLAYER, SpriteSheet.PLAYER], [CharKey.SHOPPER, SpriteSheet.SHOPPER], [CharKey.FRANKEN, SpriteSheet.FRANKEN]])
-      this.anims.create({
-        key: `${charKey}-${key}`,
-        frames: this.anims.generateFrameNumbers(spriteKey, config),
-        frameRate: 6,
-        repeat: -1
-      })
-      this.anims.create({
-        key: `${CharKey.SHOPPER}-${key}`,
-        frames: this.anims.generateFrameNumbers(SpriteSheet.SHOPPER, config),
-        frameRate: 6,
-        repeat: -1
-      })
+    const frankenAnims: Generator[] = [
+      [AnimStates.UP_WALK, { start: 4, end: 7 }],
+      [AnimStates.DOWN_WALK, { start: 0, end: 3 }],
+      [AnimStates.LEFT_WALK, { start: 0, end: 3 }],
+      [AnimStates.RIGHT_WALK, { start: 4, end: 7 }],
+      [AnimStates.UP, { frames: [4, 6] }],
+      [AnimStates.DOWN, { frames: [0, 2] }],
+      [AnimStates.LEFT, { frames: [0, 2] }],
+      [AnimStates.RIGHT, { frames: [4, 6] }]
+    ]
+    const thangs: [CharKey, SpriteSheet, Generator[]][] = [[CharKey.PLAYER, SpriteSheet.PLAYER, mainCharAnims], [CharKey.FRANKEN, SpriteSheet.FRANKEN, frankenAnims]]
+    for (const [charKey, spriteKey, anims] of thangs) {
+      for (const [key, config] of anims) {
+        this.anims.create({
+          key: `${charKey}-${key}`,
+          frames: this.anims.generateFrameNumbers(spriteKey, config),
+          frameRate: 6,
+          repeat: -1
+        })
+        this.anims.create({
+          key: `${CharKey.SHOPPER}-${key}`,
+          frames: this.anims.generateFrameNumbers(SpriteSheet.SHOPPER, config),
+          frameRate: 6,
+          repeat: -1
+        })
+      }
     }
+
     this.anims.create({
       key: AnimKeys.FRANKEN_ZAP,
       frames: this.anims.generateFrameNumbers(SpriteSheet.FRANKEN_ZAP, {

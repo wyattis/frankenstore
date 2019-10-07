@@ -1,11 +1,14 @@
 export enum SpriteSheet {
   PLAYER = 'player',
-  SHOPPER = 'shopper',
   FRANKEN_ZAP = 'franken-zap',
   FRANKEN = 'franken',
   MESS = 'mess',
   TILESHEET = 'tilesheet',
-  MUTE = 'mute'
+  MUTE = 'mute',
+  INFO = 'info',
+  SHOPPER_1 = 'shooper 1',
+  SHOPPER_2 = 'shooper 2',
+  SHOPPER_3 = 'shooper 3'
 }
 export enum AnimStates {
   LEFT = 'left',
@@ -25,7 +28,9 @@ export enum AnimKeys {
 
 export enum CharKey {
   PLAYER = 'player',
-  SHOPPER = 'shopper',
+  SHOPPER1 = 'shopper1',
+  SHOPPER2 = 'shopper2',
+  SHOPPER3 = 'shopper3',
   FRANKEN = 'franken'
 }
 

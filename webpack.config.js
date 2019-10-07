@@ -18,7 +18,7 @@ module.exports = {
       use: 'file-loader'
     }]
   },
-  mode: 'development',
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   devtool: 'source-map',
   resolve: {
     extensions: [ '.tsx', '.ts', '.js', '.json' ]

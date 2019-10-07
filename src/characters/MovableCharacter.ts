@@ -4,6 +4,7 @@ import GameScene from '../scenes/GameScene'
 import { PathBins } from '../util/PathBins'
 import { CharKey } from '../types/PhaserKeys'
 import { InteractiveTile } from '../types/InteractiveTile'
+import { CharacterEvent } from '../types/Action'
 
 
 export abstract class MovableCharacter extends Character {
@@ -34,6 +35,7 @@ export abstract class MovableCharacter extends Character {
     console.log('moveTo', this.constructor.name, 'path', this.path)
     this.isFollowingPath = true
     this.onPathReset()
+    this.emit(CharacterEvent.PATH_RESET)
   }
 
   async moveToTile (tile: InteractiveTile) {
@@ -84,6 +86,7 @@ export abstract class MovableCharacter extends Character {
       this.isFollowingPath = false
       this.body.setVelocity(0, 0)
       this.onPathComplete()
+      this.emit(CharacterEvent.PATH_COMPLETE)
     }
   }
 

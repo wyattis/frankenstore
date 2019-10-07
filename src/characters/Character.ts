@@ -11,13 +11,15 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
   public body!: Phaser.Physics.Arcade.Body
   public walkSpeed: number = 100
   private tileHeight: number
+  public isLocked: boolean = false
+  public blockStateChange: boolean = false
 
-  constructor (public scene: GameScene, x: number, y: number, texture: string, charKey: CharKey) {
+  constructor (public scene: GameScene, x: number, y: number, texture: string, public charKey: CharKey) {
     super(scene, x, y, texture, charKey)
     this.makeAnimMap(charKey)
     this.anims.play(this.animMap.down)
     this.scene.physics.add.existing(this)
-    this.setOrigin(0.2, 1)
+    this.setOrigin(0.2, .8)
     this.setDepth(2)
     this.tileHeight = scene.map.tileHeight
   }
@@ -37,10 +39,14 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
 
   preUpdate (time: number, delta: number): void {
     super.preUpdate(time, delta)
+    if (this.isLocked) return
+    this.setDepth(this.scene.pathFinder.pixelsToTile(this.y + 8, this.tileHeight))
+
     /**
      * TODO: A minimal performance improvement could come from tracking animation state with an int based enum instead
      * of doing the string comparison
      */
+    if (this.blockStateChange) return
     if (this.body.velocity.y > 0 && this.anims.currentAnim.key !== this.animMap.downWalk) {
       this.anims.play(this.animMap.downWalk)
     } else if (this.body.velocity.y < 0 && this.anims.currentAnim.key !== this.animMap.upWalk) {
@@ -60,10 +66,6 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
         this.anims.play(this.animMap.left)
       }
     }
-
-    this.setDepth(this.scene.pathFinder.pixelsToTile(this.y + 8, this.tileHeight))
-    // console.log('depth', this.constructor.name, this.depth)
-
   }
 
   moveRight () {

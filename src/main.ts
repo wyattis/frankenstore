@@ -13,6 +13,11 @@ const game = new Phaser.Game({
       // debug: IS_DEV
     }
   },
+  backgroundColor: 0x3F3938,
+  render: {
+    pixelArt: true,
+    roundPixels: true
+  },
   scene: [
     GameScene,
     HUDScene

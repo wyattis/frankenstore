@@ -85,11 +85,19 @@ export default class GameScene extends Phaser.Scene {
   loadSprites () {
     this.load.spritesheet(SpriteSheet.PLAYER, require('../../assets/images/shopkeeper.png'), {
       frameWidth: 32,
-      frameHeight: 46
+      frameHeight: 48
     })
-    this.load.spritesheet(SpriteSheet.SHOPPER, require('../../assets/images/shopper.png'), {
-      frameWidth: 19,
-      frameHeight: 29
+    this.load.spritesheet(SpriteSheet.SHOPPER_1, require('../../assets/images/shopper1.png'), {
+      frameWidth: 32,
+      frameHeight: 48
+    })
+    this.load.spritesheet(SpriteSheet.SHOPPER_2, require('../../assets/images/shopper2.png'), {
+      frameWidth: 32,
+      frameHeight: 48
+    })
+    this.load.spritesheet(SpriteSheet.SHOPPER_3, require('../../assets/images/shopper3.png'), {
+      frameWidth: 32,
+      frameHeight: 48
     })
     this.load.spritesheet(SpriteSheet.FRANKEN, require('../../assets/images/franken.png'), {
       frameWidth: 32,
@@ -260,7 +268,23 @@ export default class GameScene extends Phaser.Scene {
       [AnimStates.LEFT, { frames: [0, 2] }],
       [AnimStates.RIGHT, { frames: [4, 6] }]
     ]
-    const thangs: [CharKey, SpriteSheet, Generator[]][] = [[CharKey.PLAYER, SpriteSheet.PLAYER, mainCharAnims], [CharKey.FRANKEN, SpriteSheet.FRANKEN, frankenAnims]]
+    const shopperAnims: Generator[] = [
+      [AnimStates.UP_WALK, { start: 0, end: 1 }],
+      [AnimStates.DOWN_WALK, { start: 2, end: 3 }],
+      [AnimStates.LEFT_WALK, { start: 0, end: 1 }],
+      [AnimStates.RIGHT_WALK, { start: 2, end: 3 }],
+      [AnimStates.UP, { frames: [0] }],
+      [AnimStates.DOWN, { frames: [2] }],
+      [AnimStates.LEFT, { frames: [0] }],
+      [AnimStates.RIGHT, { frames: [2] }]
+    ]
+    const thangs: [CharKey, SpriteSheet, Generator[]][] = [
+      [CharKey.PLAYER, SpriteSheet.PLAYER, mainCharAnims],
+      [CharKey.FRANKEN, SpriteSheet.FRANKEN, frankenAnims],
+      [CharKey.SHOPPER1, SpriteSheet.SHOPPER_1, shopperAnims],
+      [CharKey.SHOPPER2, SpriteSheet.SHOPPER_2, shopperAnims],
+      [CharKey.SHOPPER3, SpriteSheet.SHOPPER_3, shopperAnims]
+    ]
     for (const [charKey, spriteKey, anims] of thangs) {
       for (const [key, config] of anims) {
         this.anims.create({
@@ -269,14 +293,26 @@ export default class GameScene extends Phaser.Scene {
           frameRate: 6,
           repeat: -1
         })
-        this.anims.create({
-          key: `${CharKey.SHOPPER}-${key}`,
-          frames: this.anims.generateFrameNumbers(SpriteSheet.SHOPPER, config),
-          frameRate: 6,
-          repeat: -1
-        })
       }
     }
+
+    this.anims.create({
+      key: `${CharKey.PLAYER}-stab-up`,
+      frames: this.anims.generateFrameNumbers(SpriteSheet.PLAYER, {
+        start: 16,
+        end: 21
+      }),
+      frameRate: 6
+    })
+
+    this.anims.create({
+      key: `${CharKey.PLAYER}-stab-down`,
+      frames: this.anims.generateFrameNumbers(SpriteSheet.PLAYER, {
+        start: 8,
+        end: 13
+      }),
+      frameRate: 6
+    })
 
     this.anims.create({
       key: AnimKeys.FRANKEN_ZAP,
@@ -288,11 +324,12 @@ export default class GameScene extends Phaser.Scene {
   }
 
   initializeChars () {
-    this.player = new Player(this, 100, 100, SpriteSheet.PLAYER)
+    this.player = new Player(this, 20 * this.map.tileWidth, 20 * this.map.tileHeight, SpriteSheet.PLAYER)
     this.add.existing(this.player)
     this.mainInputController.enableCharacter(this.player)
     this.shoppers = []
-    this.tableFranken = this.add.sprite(this.tableLocation.x + this.map.tileWidth * 1.5, this.tableLocation.y - this.map.tileHeight * 2, SpriteSheet.FRANKEN_ZAP).setVisible(false)
+    this.tableFranken = this.add.sprite(this.tableLocation.x + this.map.tileWidth * 1.5, this.tableLocation.y - this.map.tileHeight * 2.1, SpriteSheet.FRANKEN_ZAP).setVisible(false)
+    this.tableFranken.setDepth(10)
   }
 
   initializeCollision () {
@@ -305,8 +342,8 @@ export default class GameScene extends Phaser.Scene {
 
   addShopper () {
     const frontDoorTile = randomFrom(this.staticObjects.frontDoor)
-    const shopper = new Shopper(this, frontDoorTile.pixelX, frontDoorTile.pixelY, SpriteSheet.SHOPPER, CharKey.SHOPPER)
-    console.log('create shopper', shopper)
+    const keys = randomFrom([[SpriteSheet.SHOPPER_1, CharKey.SHOPPER1], [SpriteSheet.SHOPPER_2, CharKey.SHOPPER2], [SpriteSheet.SHOPPER_3, CharKey.SHOPPER3]] as [SpriteSheet, CharKey][])
+    const shopper = new Shopper(this, frontDoorTile.pixelX, frontDoorTile.pixelY, keys[0], keys[1])
     this.shoppers.push(shopper)
     this.add.existing(shopper)
     this.mainInputController.enableCharacter(shopper)

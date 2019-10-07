@@ -6,6 +6,7 @@ import { Shopper } from '../characters/Shopper'
 import { randomFrom } from 'goodish'
 
 declare const IS_DEV: boolean
+console.log('is dev', IS_DEV)
 export default class HUDScene extends Phaser.Scene {
 
   private gameScene!: GameScene
@@ -16,6 +17,7 @@ export default class HUDScene extends Phaser.Scene {
   private workersText!: Phaser.GameObjects.Text
   private moneyText!: Phaser.GameObjects.Text
   private muteButton!: Phaser.GameObjects.Image
+  private introButton!: Phaser.GameObjects.Image
 
   private selectedText!: Phaser.GameObjects.Text
   private theme!: Phaser.Sound.BaseSound
@@ -25,21 +27,36 @@ export default class HUDScene extends Phaser.Scene {
 
   private zaps: Phaser.Sound.BaseSound[] = []
 
+  private boxColor = 0x84171D
+  private hudColor = 0x3F3938
+  private boxPadding = 20
+  private textPadding = 10
+
+  private textBox!: any
+
+  public rexUI!: any
+
   constructor () {
     super({ key: SceneKey.HUD })
   }
 
   preload () {
     this.load.audio(AudioKeys.THEME, require('../../assets/audio/frankenstein - edgar winter group.mp3'))
+    this.load.image(SpriteSheet.INFO, require('../../assets/images/info.png'))
     this.load.spritesheet(SpriteSheet.MUTE, require('../../assets/images/mute.png'), {
       frameWidth: 32,
       frameHeight: 32
+    })
+    this.load.scenePlugin({
+      key: 'rexuiplugin',
+      url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/plugins/dist/rexuiplugin.min.js',
+      sceneKey: 'rexUI'
     })
   }
 
   makeHud () {
     const graphics = this.add.graphics()
-    graphics.fillStyle(0xFF0000)
+    graphics.fillStyle(this.hudColor)
     graphics.fillRect(0, 0, this.cameras.main.width, 50)
 
     this.stockText = this.add.text(10, 10, 'Stock: 0')
@@ -62,6 +79,12 @@ export default class HUDScene extends Phaser.Scene {
         this.muteButton.setFrame(0)
       } else {
         this.muteButton.setFrame(1)
+      }
+    })
+    this.introButton = this.add.image(650, 25, SpriteSheet.INFO, 0)
+    this.introButton.setInteractive().on('pointerup', () => {
+      if (!this.textBox.visible) {
+        this.showIntro()
       }
     })
   }
@@ -88,6 +111,51 @@ export default class HUDScene extends Phaser.Scene {
     this.makeAudio()
     this.makeHud()
     this.makeListeners()
+    this.makeIntro()
+    this.showIntro()
+  }
+
+  makeIntro () {
+    const boxHeight = this.cameras.main.height / 4
+    const boxWidth = this.cameras.main.width * 2 / 3
+    const centerX = this.cameras.main.width / 2
+    const centerY = this.cameras.main.height / 2
+    this.textBox = this.rexUI.add.textBox({
+      x: centerX - boxWidth / 2,
+      y: centerY - boxHeight / 2,
+      background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 20, this.boxColor),
+      space: {
+        left: this.boxPadding,
+        right: this.boxPadding,
+        top: this.boxPadding,
+        text: this.textPadding
+      },
+      text: this.rexUI.add.BBCodeText(0, 0, '', {
+        fixedWidth: boxWidth,
+        fixedHeight: boxHeight,
+        wrap: {
+          mode: 'word',
+          width: boxWidth - this.boxPadding * 2
+        }
+      })
+    }).setOrigin(0)
+      .layout()
+      .setInteractive()
+
+    this.textBox.on('pointerup', () => {
+      if (this.textBox.isTyping) {
+        this.textBox.stop(true)
+      } else {
+        this.textBox.setVisible(false)
+        this.textBox.setActive(false)
+      }
+    })
+  }
+
+  showIntro () {
+    this.textBox.setVisible(true)
+    this.textBox.setActive(true)
+    this.textBox.start(`It's the grand opening of "Shirts for money"! You don't have any workers or inventory. How can you make ends meet? You have to pay for your inventory shipment soon, try to make some money by talking to customers. \n\nUse the mouse to select the shopkeeper and move him around. Click on objects around the map to interact with them.`, 30)
   }
 
   makeAudio () {

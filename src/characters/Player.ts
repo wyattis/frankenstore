@@ -2,7 +2,7 @@ import { CharKey, TileTypes } from '../types/PhaserKeys'
 import { MovableCharacter } from './MovableCharacter'
 import GameScene from '../scenes/GameScene'
 import { ActionableCharacter } from './ActionableCharacter'
-import { Action } from '../types/Action'
+import { Action, CharacterEvent } from '../types/Action'
 import Tile = Phaser.Tilemaps.Tile
 import { GameEvents } from '../types/GameEvents'
 import { distanceSquaredBetweenPoints } from '../util/M'
@@ -10,6 +10,7 @@ import { Shopper } from './Shopper'
 import GameObject = Phaser.GameObjects.GameObject
 import Mess from '../objects/Mess'
 import { InteractiveTile } from '../types/InteractiveTile'
+import ANIMATION_COMPLETE = Phaser.Animations.Events.ANIMATION_COMPLETE
 
 export enum Direction {
   UP,
@@ -44,7 +45,34 @@ export class Player extends ActionableCharacter {
     }
   }
 
-  killChar (char: MovableCharacter) {
+  killChar (char: Shopper) {
+    const UP_KEY = `${this.charKey}-stab-up`
+    const DOWN_KEY = `${this.charKey}-stab-down`
+    char.isLocked = true
+    let key: string
+    if (char.y > this.y) {
+      key = UP_KEY
+      this.moveTo({
+        x: char.x,
+        y: char.y + 1
+      })
+    } else {
+      key = DOWN_KEY
+      this.moveTo({
+        x: char.x,
+        y: char.y - 1
+      })
+    }
+
+    this.once(CharacterEvent.PATH_COMPLETE, () => {
+      this.blockStateChange = true
+      this.on(`animationcomplete-${key}`, () => {
+        char.isLocked = false
+        char.kill()
+      })
+      this.isLocked = true
+      this.anims.play(key, true)
+    })
 
   }
 
@@ -57,7 +85,7 @@ export class Player extends ActionableCharacter {
     const closeEnoughToAct = distanceSquaredBetweenPoints(this, obj) < this.actionRadius2
     if (obj instanceof Shopper) {
       if (closeEnoughToAct) {
-        obj.kill()
+        this.killChar(obj)
       } else {
         this.moveTo(obj)
       }

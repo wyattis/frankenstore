@@ -1,0 +1,1178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="50" height="35" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="1">
+ <tileset firstgid="1" name="frankensheet" tilewidth="16" tileheight="16" tilecount="1850" columns="50">
+  <image source="../images/frankensheet.png" width="800" height="600"/>
+  <tile id="116">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="register"/>
+   </properties>
+  </tile>
+  <tile id="117">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="register"/>
+   </properties>
+  </tile>
+  <tile id="128">
+   <properties>
+    <property name="type" value="changing room"/>
+   </properties>
+  </tile>
+  <tile id="166">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="register"/>
+   </properties>
+  </tile>
+  <tile id="167">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="register"/>
+   </properties>
+  </tile>
+  <tile id="177">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="179">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="180">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="214">
+   <properties>
+    <property name="collides" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="218">
+   <properties>
+    <property name="type" value="operating"/>
+   </properties>
+  </tile>
+  <tile id="219">
+   <properties>
+    <property name="type" value="operating"/>
+   </properties>
+  </tile>
+  <tile id="220">
+   <properties>
+    <property name="type" value="operating"/>
+   </properties>
+  </tile>
+  <tile id="227">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="229">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="230">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="254">
+   <properties>
+    <property name="rowOffset" type="int" value="3"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="255">
+   <properties>
+    <property name="rowOffset" type="int" value="3"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="256">
+   <properties>
+    <property name="rowOffset" type="int" value="3"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="268">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="operating"/>
+   </properties>
+  </tile>
+  <tile id="269">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="operating"/>
+   </properties>
+  </tile>
+  <tile id="270">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="operating"/>
+   </properties>
+  </tile>
+  <tile id="303">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="rowOffset" type="int" value="3"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="304">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="rowOffset" type="int" value="3"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="305">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="rowOffset" type="int" value="3"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="306">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="rowOffset" type="int" value="3"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="307">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="rowOffset" type="int" value="0"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="308">
+   <properties>
+    <property name="colOffset" type="int" value="2"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="309">
+   <properties>
+    <property name="colOffset" type="int" value="2"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="310">
+   <properties>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="311">
+   <properties>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="318">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="operating"/>
+   </properties>
+  </tile>
+  <tile id="319">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="operating"/>
+   </properties>
+  </tile>
+  <tile id="320">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="operating"/>
+   </properties>
+  </tile>
+  <tile id="327">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="328">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="329">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="330">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="331">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="332">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="333">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="334">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="353">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="rowOffset" type="int" value="3"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="354">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="rowOffset" type="int" value="3"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="355">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="rowOffset" type="int" value="3"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="356">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="rowOffset" type="int" value="3"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="357">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="rowOffset" type="int" value="0"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="358">
+   <properties>
+    <property name="colOffset" type="int" value="2"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="359">
+   <properties>
+    <property name="colOffset" type="int" value="2"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="360">
+   <properties>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="361">
+   <properties>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="377">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="378">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="379">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="380">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="381">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="382">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="383">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="384">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="404">
+   <properties>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="405">
+   <properties>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="406">
+   <properties>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="408">
+   <properties>
+    <property name="colOffset" type="int" value="2"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="409">
+   <properties>
+    <property name="colOffset" type="int" value="2"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="410">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="411">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="427">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="428">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="429">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="430">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="431">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="432">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="433">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="434">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="453">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="454">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="455">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="456">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="457">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="458">
+   <properties>
+    <property name="colOffset" type="int" value="2"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="459">
+   <properties>
+    <property name="colOffset" type="int" value="2"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="460">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="461">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="462">
+   <properties>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="463">
+   <properties>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="464">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="465">
+   <properties>
+    <property name="colOffset" type="int" value="1"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="466">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="467">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="468">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="469">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="470">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="471">
+   <properties>
+    <property name="colOffset" type="int" value="3"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="472">
+   <properties>
+    <property name="colOffset" type="int" value="3"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="473">
+   <properties>
+    <property name="colOffset" type="int" value="3"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="474">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="475">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="476">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="477">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="478">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="479">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="480">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="481">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="482">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="483">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="484">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="503">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="504">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="505">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="506">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="507">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="508">
+   <properties>
+    <property name="colOffset" type="int" value="2"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="509">
+   <properties>
+    <property name="colOffset" type="int" value="2"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="510">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="511">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="512">
+   <properties>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="513">
+   <properties>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="514">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="515">
+   <properties>
+    <property name="colOffset" type="int" value="1"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="516">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="517">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="518">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="519">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="520">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="521">
+   <properties>
+    <property name="colOffset" type="int" value="3"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="522">
+   <properties>
+    <property name="colOffset" type="int" value="3"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="523">
+   <properties>
+    <property name="colOffset" type="int" value="3"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="524">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="525">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="526">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="527">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="528">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="529">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="530">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="531">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="532">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="533">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="534">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="558">
+   <properties>
+    <property name="colOffset" type="int" value="2"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="559">
+   <properties>
+    <property name="colOffset" type="int" value="2"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="560">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="561">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="vertshelf"/>
+   </properties>
+  </tile>
+  <tile id="562">
+   <properties>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="563">
+   <properties>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="564">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="565">
+   <properties>
+    <property name="colOffset" type="int" value="1"/>
+    <property name="collides" type="bool" value="true"/>
+    <property name="stocked" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="566">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="567">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="568">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="569">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="570">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="horizshelf"/>
+   </properties>
+  </tile>
+  <tile id="571">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="572">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="573">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="574">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="575">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="576">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="storageshelf"/>
+   </properties>
+  </tile>
+  <tile id="660">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="mannequin stand"/>
+   </properties>
+  </tile>
+  <tile id="661">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="mannequin stand"/>
+   </properties>
+  </tile>
+  <tile id="662">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="mannequin stand"/>
+   </properties>
+  </tile>
+  <tile id="710">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="mannequin stand"/>
+   </properties>
+  </tile>
+  <tile id="711">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="mannequin stand"/>
+   </properties>
+  </tile>
+  <tile id="712">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="type" value="mannequin stand"/>
+   </properties>
+  </tile>
+  <tile id="714">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="715">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="716">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="717">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="718">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="719">
+   <properties>
+    <property name="type" value="frontdoor"/>
+   </properties>
+  </tile>
+  <tile id="720">
+   <properties>
+    <property name="type" value="frontdoor"/>
+   </properties>
+  </tile>
+  <tile id="721">
+   <properties>
+    <property name="type" value="frontdoor"/>
+   </properties>
+  </tile>
+  <tile id="722">
+   <properties>
+    <property name="type" value="frontdoor"/>
+   </properties>
+  </tile>
+  <tile id="723">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="724">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="725">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="764">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="765">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="766">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="767">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="768">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="769">
+   <properties>
+    <property name="type" value="frontdoor"/>
+   </properties>
+  </tile>
+  <tile id="770">
+   <properties>
+    <property name="type" value="frontdoor"/>
+   </properties>
+  </tile>
+  <tile id="771">
+   <properties>
+    <property name="type" value="frontdoor"/>
+   </properties>
+  </tile>
+  <tile id="772">
+   <properties>
+    <property name="type" value="frontdoor"/>
+   </properties>
+  </tile>
+  <tile id="773">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="774">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="775">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer id="6" name="Tile Layer 1" width="50" height="35">
+  <properties>
+   <property name="static" type="bool" value="true"/>
+  </properties>
+  <data encoding="csv">
+578,579,580,581,582,583,584,578,579,580,581,582,578,579,580,581,582,583,628,629,630,578,579,580,581,582,583,578,579,580,581,582,583,584,585,585,585,585,585,583,605,606,605,606,605,606,605,606,605,606,
+578,579,580,581,582,583,584,628,629,630,631,632,578,579,580,581,582,583,628,629,630,578,579,580,581,582,583,578,579,580,581,582,583,584,585,635,585,635,635,585,655,656,655,656,655,656,655,656,655,656,
+578,579,580,581,582,583,584,628,629,630,631,632,578,579,580,581,582,583,628,629,630,578,579,580,581,582,583,578,578,579,580,581,582,583,584,585,635,634,635,635,605,606,605,606,605,606,605,606,605,606,
+578,579,580,581,582,583,584,628,629,630,631,632,578,578,579,580,581,582,628,629,630,578,579,580,581,582,583,628,628,629,630,631,632,633,634,635,635,633,634,635,655,656,655,656,655,656,655,656,655,656,
+578,578,579,580,581,582,583,578,628,629,630,631,628,578,579,580,581,582,628,629,630,578,579,580,581,582,583,578,628,628,629,630,631,632,633,634,635,633,634,635,605,606,605,606,605,606,605,606,605,606,
+578,578,578,578,578,578,578,578,578,578,578,578,578,578,578,578,578,579,580,581,582,583,584,585,585,585,585,585,585,585,585,585,585,585,585,582,583,584,585,634,655,656,655,656,655,656,655,656,655,656,
+580,581,582,583,584,585,585,585,578,628,628,628,628,628,628,578,578,578,578,578,578,579,580,578,579,580,581,582,583,584,585,635,635,635,635,585,585,585,585,585,605,606,605,606,605,606,605,606,605,606,
+630,631,632,633,634,635,635,635,628,628,629,630,631,578,578,578,578,578,578,579,580,581,582,583,584,585,585,585,585,585,585,585,578,579,580,581,582,583,584,585,655,656,605,656,655,656,655,656,655,656,
+579,580,581,582,583,584,585,585,585,585,585,585,585,585,585,584,585,585,585,585,585,585,585,585,585,635,635,635,635,635,635,635,585,585,585,585,585,584,585,585,605,606,605,606,605,606,605,606,605,606,
+578,578,578,578,578,578,578,578,578,578,578,578,578,578,578,578,578,578,578,578,578,382,578,578,578,578,578,578,578,578,579,578,578,579,580,581,582,583,584,585,335,606,605,656,655,656,655,656,655,656,
+628,628,628,628,628,628,628,628,628,628,628,628,628,628,628,628,628,628,628,628,628,628,628,628,628,628,628,628,628,578,578,628,578,578,579,580,581,582,583,584,605,606,605,606,605,606,605,606,605,606,
+655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,605,605,605,605,605,605,605,605,605,605,605,655,656,605,605,655,656,655,656,655,656,
+605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,655,655,655,655,655,655,655,655,655,655,655,655,605,605,655,655,606,605,606,605,606,
+655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,655,655,655,655,656,655,656,655,656,
+605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,
+655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,
+605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,
+655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,
+605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,
+655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,
+605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,
+655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,
+605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,
+655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,
+605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,
+655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,
+605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,
+655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,
+605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,
+655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,655,656,
+605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,605,606,
+655,656,655,656,655,656,655,656,605,606,655,656,655,656,605,606,655,656,655,656,655,656,655,605,606,606,606,606,606,606,606,606,655,656,655,656,655,656,655,656,655,605,606,606,606,606,606,606,606,656,
+606,606,606,606,606,606,606,606,605,606,605,606,605,605,605,605,605,605,605,605,605,605,605,655,656,656,656,656,656,656,656,656,606,606,606,606,606,606,606,606,606,606,606,656,656,656,656,656,656,606,
+656,656,656,656,656,656,656,656,606,606,605,606,655,605,655,605,605,605,605,605,605,605,605,605,605,605,605,606,605,605,655,656,656,656,656,656,656,656,656,656,656,656,656,605,605,605,605,655,656,656,
+655,655,655,655,655,655,656,656,656,606,655,656,655,655,655,655,655,655,655,655,655,655,655,655,655,655,655,605,605,605,605,606,655,655,655,655,655,655,655,655,655,655,655,655,655,655,655,655,655,655
+</data>
+ </layer>
+ <layer id="7" name="Tile Layer 2" width="50" height="35">
+  <properties>
+   <property name="static" type="bool" value="true"/>
+  </properties>
+  <data encoding="csv">
+422,423,424,425,426,427,422,423,424,425,426,427,422,423,424,422,423,424,425,426,427,378,334,334,334,334,334,334,334,334,334,334,334,334,334,334,334,334,334,335,382,28,29,30,31,28,28,29,30,31,
+472,473,474,475,476,477,472,473,474,475,476,477,472,473,474,472,473,474,475,476,477,331,384,384,384,384,384,384,384,384,384,384,384,384,384,384,384,384,384,385,382,28,29,28,29,78,28,29,30,31,
+522,523,524,525,526,527,522,523,524,525,526,527,522,523,524,522,523,524,525,526,527,329,434,434,434,434,434,434,428,429,430,431,432,433,434,434,434,435,434,435,382,28,29,28,29,78,28,29,30,31,
+572,573,574,575,576,577,572,573,574,575,576,577,572,573,574,572,573,574,575,576,577,329,484,484,484,484,484,484,478,479,480,481,482,483,484,484,484,485,484,485,382,28,29,28,29,78,28,29,30,31,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,329,534,534,534,534,534,534,528,529,530,531,532,533,534,534,534,535,534,535,382,28,29,28,28,78,78,79,80,81,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,329,0,0,0,0,0,0,0,0,219,220,221,0,0,0,0,0,0,0,382,28,29,78,28,29,78,79,80,81,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,329,0,0,0,0,0,0,0,0,269,270,271,0,0,0,0,0,0,0,382,28,29,30,28,29,78,79,80,81,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,329,0,0,0,0,0,0,0,0,319,320,321,0,0,0,0,0,0,0,382,78,79,80,78,79,80,78,79,80,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,379,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,382,78,78,79,28,28,28,78,79,80,
+416,416,416,416,416,416,416,416,416,416,416,0,0,416,417,416,416,416,416,416,416,416,417,417,416,416,416,416,417,0,0,417,417,421,421,421,421,421,421,421,421,78,79,80,78,78,78,78,79,80,
+466,466,466,466,466,466,466,466,466,466,468,0,0,466,467,466,466,466,466,466,466,466,467,467,466,466,466,466,467,0,0,467,467,471,471,471,471,471,471,471,471,128,130,129,130,130,130,129,130,131,
+516,516,516,516,516,517,516,516,517,516,516,0,0,516,517,516,516,516,516,516,516,516,517,517,516,516,516,516,517,0,0,517,517,521,521,521,521,521,521,521,521,178,180,179,180,180,180,179,180,181,
+566,566,566,566,566,566,566,566,566,566,568,0,0,566,567,566,566,566,566,566,566,566,567,567,566,566,566,566,567,0,0,567,567,571,571,571,571,571,571,571,571,228,230,229,230,230,230,229,230,231,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,309,310,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,359,360,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,409,410,0,0,0,0,0,0,0,0,0,311,312,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,459,460,0,0,0,0,0,0,0,0,0,361,362,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,254,255,256,257,258,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,509,510,0,0,0,0,0,0,0,0,0,411,412,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,304,305,306,307,308,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,559,560,0,0,0,0,0,0,0,0,0,461,462,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,354,355,356,357,358,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,511,512,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,561,562,0,0,0,0,0,0,0,0,404,405,406,407,408,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,454,455,456,457,458,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,504,505,506,507,508,0,0,0,0,0,661,662,663,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,711,712,713,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,117,118,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,167,168,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+615,625,625,625,625,625,625,616,617,618,619,620,621,622,623,624,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,625,626,
+665,675,675,675,675,675,675,666,667,668,669,670,671,672,673,674,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,675,676,
+715,725,725,725,725,725,725,716,717,718,719,720,721,722,723,724,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,725,726,
+765,775,775,775,775,775,775,766,767,768,769,770,771,772,773,774,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,775,776
+</data>
+ </layer>
+</map>

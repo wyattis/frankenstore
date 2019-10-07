@@ -1,7 +1,6 @@
 import * as Phaser from 'phaser'
 import GameScene from './scenes/GameScene'
-// const GameScene = () => import(/* webpackChunkName: "game" */'./scenes/GameScene')
-// const MenuScene = () => import(/* webpackChunkName: "menu" */'./scenes/MenuScene')
+import HUDScene from './scenes/HUDScene'
 
 declare const IS_DEV: boolean
 const game = new Phaser.Game({
@@ -15,6 +14,8 @@ const game = new Phaser.Game({
     }
   },
   scene: [
-    GameScene
+    GameScene,
+    HUDScene
+    // MenuScene
   ]
 })

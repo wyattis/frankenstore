@@ -1,5 +1,9 @@
 import { Character } from './Character'
-import { CharKey } from '../scenes/GameScene'
+import { CharKey } from '../types/PhaserKeys'
+import { MovableCharacter } from './MovableCharacter'
+import GameScene from '../scenes/GameScene'
+import { ActionableCharacter } from './ActionableCharacter'
+import { Action } from '../types/Action'
 
 export enum Direction {
   UP,
@@ -8,7 +12,7 @@ export enum Direction {
   LEFT
 }
 
-export class Player extends Character {
+export class Player extends ActionableCharacter {
 
   private keys!: {
     W: Phaser.Input.Keyboard.Key,
@@ -17,7 +21,12 @@ export class Player extends Character {
     D: Phaser.Input.Keyboard.Key,
   }
 
-  constructor (scene: Phaser.Scene, x: number, y: number, texture: string) {
+  actions = {
+    [Action.KILL]: this.killChar.bind(this),
+    [Action.HELP]: this.helpChar.bind(this)
+  }
+
+  constructor (scene: GameScene, x: number, y: number, texture: string) {
     super(scene, x, y, texture, CharKey.PLAYER)
     this.initInput()
   }
@@ -31,22 +40,34 @@ export class Player extends Character {
     }
   }
 
-  preUpdate (time: number, delta: number) {
-    if (this.keys.W.isDown) {
-      this.moveUp()
-    } else if (this.keys.S.isDown) {
-      this.moveDown()
-    } else {
-      this.body.setVelocityY(0)
-    }
-    if (this.keys.D.isDown) {
-      this.moveRight()
-    } else if (this.keys.A.isDown) {
-      this.moveLeft()
-    } else {
-      this.body.setVelocityX(0)
-    }
-    super.preUpdate(time, delta)
+  killChar (char: MovableCharacter) {
+
   }
+
+  helpChar (char: MovableCharacter) {
+
+  }
+
+  actOn (char: MovableCharacter) {
+    console.log('act on', char)
+  }
+
+  // preUpdate (time: number, delta: number) {
+  //   if (this.keys.W.isDown) {
+  //     this.moveUp()
+  //   } else if (this.keys.S.isDown) {
+  //     this.moveDown()
+  //   } else {
+  //     this.body.setVelocityY(0)
+  //   }
+  //   if (this.keys.D.isDown) {
+  //     this.moveRight()
+  //   } else if (this.keys.A.isDown) {
+  //     this.moveLeft()
+  //   } else {
+  //     this.body.setVelocityX(0)
+  //   }
+  //   super.preUpdate(time, delta)
+  // }
 
 }

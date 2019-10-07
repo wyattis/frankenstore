@@ -1,7 +1,7 @@
 import * as EasyStar from 'easystarjs'
+import { Cell, Point } from '../types/Geom'
+import Tile = Phaser.Tilemaps.Tile
 
-export interface Point { x: number, y: number }
-export interface Cell { row: number, col: number }
 export default class PathFinder {
   private easyStar!: EasyStar.js
   public tileWidth: number
@@ -16,36 +16,29 @@ export default class PathFinder {
   private initEasyStar (map: Phaser.Tilemaps.Tilemap) {
     this.easyStar = new EasyStar.js()
     const grid: number[][] = []
-    const acceptableTiles: number[] = []
     for (let y = 0; y < map.height; y++) {
       const row = []
       for (let x = 0; x < map.width; x++) {
-        const tiles: Phaser.Tilemaps.Tile[] = map.getTilesWithin(x, y)
-        if (tiles.length) {
-          const tileIndex = tiles[0].index
-          row.push(tileIndex)
-          let isCollidable = false
-          for (const tile of tiles) {
-            if (Array.isArray(tile.properties)) {
-              isCollidable = tile.properties.findIndex((p: { name: string, value: any }) => p.name === 'collides' && p.value) > -1
-            } else {
-              isCollidable = tile.properties.collides
-            }
-            if (isCollidable) {
-              break
-            }
+        let isCollision = false
+        for (const layer of map.layers) {
+          // @ts-ignore
+          const tile: Tile = layer.data[y][x]
+          if (tile.properties.hasOwnProperty('collides') && tile.properties.collides) {
+            isCollision = true
+            break
           }
-          if (!isCollidable) {
-            acceptableTiles.push(tileIndex)
-          }
+        }
+        if (isCollision) {
+          row.push(1)
         } else {
-          row.push(-1)
+          row.push(0)
         }
       }
       grid.push(row)
     }
+    console.log('collision grid', grid)
     this.easyStar.setGrid(grid)
-    this.easyStar.setAcceptableTiles(acceptableTiles)
+    this.easyStar.setAcceptableTiles([0])
   }
 
   public pointToCell (point: Point): Cell {

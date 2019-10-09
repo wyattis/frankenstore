@@ -380,13 +380,17 @@ export default class GameScene extends Phaser.Scene {
 
   buildFranken () {
     const cost = this.costs.franken
-    if (this.gameState.money < cost.money || this.gameState.bodyParts < cost.bodyParts || this.gameState.rearInventory < cost.inventory) {
+    if (this.gameState.money < cost.money || this.gameState.bodyParts < cost.bodyParts || this.gameState.rearInventory + this.gameState.frontInventory < cost.inventory) {
       return this.events.emit(GameEvents.CANT_BUILD_FRANK)
     }
 
     this.gameState.bodyParts -= cost.bodyParts
     this.gameState.money -= cost.money
-    this.gameState.rearInventory -= cost.inventory
+    if (this.gameState.rearInventory > 0) {
+      this.gameState.rearInventory -= cost.inventory
+    } else {
+      this.gameState.frontInventory -= cost.inventory
+    }
 
     this.tableFranken.setVisible(true)
     this.events.emit(GameEvents.FRANK_BUILT)

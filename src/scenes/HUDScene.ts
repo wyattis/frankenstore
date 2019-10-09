@@ -146,15 +146,17 @@ export default class HUDScene extends Phaser.Scene {
         .setOrigin(0).layout()
         .setVisible(false).setInteractive()
         .setActive(false)
-      box.on('pointerup', function (this: any) {
-        if (this.isTyping) {
-          this.stop(true)
+      box.on('pointerup', () => {
+        if (box.isTyping) {
+          box.stop(true)
         } else {
-          this.setVisible(false).setActive(false)
+          this.gameScene.resume()
+          box.setVisible(false).setActive(false)
         }
-      }, box)
+      })
       this.warningPopups[key] = box
       this.gameScene.events.on(key, () => {
+        this.gameScene.pause()
         box.setVisible(true).setActive(true).start(text, 30)
       })
     }
@@ -194,8 +196,8 @@ export default class HUDScene extends Phaser.Scene {
       if (this.introTextBox.isTyping) {
         this.introTextBox.stop(true)
       } else {
-        this.introTextBox.setVisible(false)
-        this.introTextBox.setActive(false)
+        this.introTextBox.setVisible(false).setActive(false)
+        this.gameScene.resume()
       }
     })
 
@@ -211,9 +213,10 @@ export default class HUDScene extends Phaser.Scene {
   }
 
   restart () {
-    this.sound.stopAll()
-    this.scene.stop()
-    this.gameScene.scene.restart()
+    window.location.reload()
+    // this.sound.stopAll()
+    // this.scene.stop()
+    // this.gameScene.scene.restart()
   }
 
   showLoss () {
@@ -229,6 +232,7 @@ export default class HUDScene extends Phaser.Scene {
   }
 
   showIntro () {
+    this.gameScene.pause()
     this.introTextBox.setVisible(true)
     this.introTextBox.setActive(true)
     const startText = `It's the grand opening of "Shirts for money"! You don't have any workers or inventory. ` +
@@ -257,9 +261,10 @@ export default class HUDScene extends Phaser.Scene {
 
   makeListeners () {
     const gameState = this.gameScene.gameState
-    this.gameScene.events.on(GameEvents.PURCHASE_INVENTORY, (cost: number) => {
+    this.gameScene.events.on(GameEvents.PURCHASE_INVENTORY, (amount: number) => {
       console.log('event', GameEvents.PURCHASE_INVENTORY)
-      gameState.money -= cost
+      gameState.money -= 20 * amount
+      gameState.rearInventory += amount
       this.updateMoney()
       this.checkLose()
     })

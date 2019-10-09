@@ -35,7 +35,8 @@ module.exports = {
           compress: true
         }
       })
-    ]
+    ],
+    // minimize: false
   },
   output: {
     filename: 'bundle.[hash].js',

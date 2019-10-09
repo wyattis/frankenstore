@@ -20,6 +20,7 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
     this.makeAnimMap(charKey)
     this.anims.play(this.animMap.down)
     this.setDepth(2)
+    this.setOrigin(0.2, 1)
     this.tileHeight = scene.map.tileHeight
     this.scene.physics.add.existing(this)
   }

@@ -14,6 +14,5 @@ export enum GameEvents {
   FRANK_BUILT = 'frank built',
   LOSS = 'debt',
   WIN = 'win',
-  CANT_BUILD_FRANK = 'cant build frank',
-
+  CANT_BUILD_FRANK = 'cant build frank'
 }

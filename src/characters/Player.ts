@@ -31,7 +31,7 @@ export class Player extends ActionableCharacter {
   constructor (public scene: GameScene, x: number, y: number, texture: string) {
     super(scene, x, y, texture, CharKey.PLAYER)
     this.actionRadius2 = Math.pow(2 * Math.max(this.scene.map.tileWidth, this.scene.map.tileHeight), 2)
-    this.setSize(25, 37).setOrigin(0, .8)
+    this.setSize(25, 37).setOrigin(.5, .8)
   }
 
   buildFranken () {

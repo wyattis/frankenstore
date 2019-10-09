@@ -23,7 +23,7 @@ export default class GameScene extends Phaser.Scene {
 
   public map!: Phaser.Tilemaps.Tilemap
   public pathFinder!: PathFinder
-  public shoppers: Shopper[] = []
+  public nShoppers: number = 0
   public frankens: Franken[] = []
   private player!: Player
   private layers: (DynamicTilemapLayer | StaticTilemapLayer)[] = []
@@ -344,7 +344,6 @@ export default class GameScene extends Phaser.Scene {
     this.player = new Player(this, 20 * this.map.tileWidth, 20 * this.map.tileHeight, SpriteSheet.PLAYER)
     this.add.existing(this.player)
     this.mainInputController.enableCharacter(this.player)
-    this.shoppers = []
     this.tableFranken = this.add.sprite(this.tableLocation.x + this.map.tileWidth * 1.5, this.tableLocation.y - this.map.tileHeight * 2.1, SpriteSheet.FRANKEN_ZAP).setVisible(false)
     this.tableFranken.setDepth(10)
     this.mainInputController.select(this.player)
@@ -359,13 +358,12 @@ export default class GameScene extends Phaser.Scene {
   }
 
   addShopper () {
-    if (this.shoppers.length >= 10) return
+    if (this.nShoppers >= 10) return
     const frontDoorTile = randomFrom(this.staticObjects.frontDoor)
     const randInt = randomInt(0, 3)
     console.log('add shopper', randInt)
     const keys = randomFrom([[SpriteSheet.SHOPPER_1, CharKey.SHOPPER1], [SpriteSheet.SHOPPER_2, CharKey.SHOPPER2], [SpriteSheet.SHOPPER_3, CharKey.SHOPPER3]] as [SpriteSheet, CharKey][])
     const shopper = new Shopper(this, frontDoorTile.pixelX, frontDoorTile.pixelY, keys[0], keys[1])
-    this.shoppers.push(shopper)
     this.add.existing(shopper)
     this.mainInputController.enableCharacter(shopper)
     this.events.emit(GameEvents.CUSTOMER_ENTERS, shopper)

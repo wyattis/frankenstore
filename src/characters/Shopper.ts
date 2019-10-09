@@ -2,7 +2,7 @@ import GameScene from '../scenes/GameScene'
 import { CharKey } from '../types/PhaserKeys'
 import { CharacterEvent } from '../types/Action'
 import { AICharacter } from './AICharacter'
-import { randomFrom, randomInt } from 'goodish'
+import { randomFrom } from 'goodish'
 import { GameEvents } from '../types/GameEvents'
 import Mess from '../objects/Mess'
 
@@ -12,7 +12,6 @@ const LEAVING = 'leaving'
 
 export class Shopper extends AICharacter {
 
-  public isSelectable = false
   public money: number
   public clothes: number = 1
   public bodyParts: number = 5
@@ -24,7 +23,7 @@ export class Shopper extends AICharacter {
 
   constructor (public scene: GameScene, x: number, y: number, texture: string, charKey: CharKey) {
     super(scene, x, y, texture, charKey)
-    this.money = randomInt(5, 100)
+    this.money = randomFrom([25, 50, 75])
     if (charKey === CharKey.SHOPPER1) {
       this.setSize(22, 43)
     } else if (charKey === CharKey.SHOPPER2) {
@@ -32,7 +31,7 @@ export class Shopper extends AICharacter {
     } else {
       this.setSize(22, 37)
     }
-    this.setOrigin(0, 1)
+    this.setOrigin(.5, 1)
   }
 
   async makeDecision () {

@@ -1,11 +1,9 @@
 import GameScene from '../scenes/GameScene'
 import { GameEvents } from '../types/GameEvents'
 
-declare const IS_DEV: boolean
 export class GameStateController {
 
-  private shopperDelay = 30 * 1000
-  private stockPurchaseDelay = 5 * 60 * 1000
+  private stockPurchaseDelay = 2 * 60 * 1000
   private nStockPurchases = 1
 
   constructor (private scene: GameScene) {
@@ -14,16 +12,17 @@ export class GameStateController {
   }
 
   addShopper () {
+    console.log('add shopper')
     this.scene.addShopper()
-    this.shopperDelay -= (this.shopperDelay / 30000) * 1000
-    if (this.shopperDelay < 5 * 1000) {
-      this.shopperDelay = 5 * 1000
+    let shopperDelay = 20 * 1000 - this.scene.gameState.frontInventory * 600 + this.scene.nShoppers * 200
+    if (shopperDelay < 3 * 1000) {
+      shopperDelay = 3 * 1000
     }
-    this.scene.time.delayedCall(this.shopperDelay, this.addShopper, [], this)
+    this.scene.time.delayedCall(shopperDelay, this.addShopper, [], this)
   }
 
   purchaseStock () {
-    this.scene.events.emit(GameEvents.PURCHASE_INVENTORY, 100 * this.nStockPurchases)
+    this.scene.events.emit(GameEvents.PURCHASE_INVENTORY, 50 * this.nStockPurchases)
     this.nStockPurchases++
     this.scene.time.delayedCall(this.stockPurchaseDelay, this.purchaseStock, [], this)
   }

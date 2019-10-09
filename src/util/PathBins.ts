@@ -7,27 +7,25 @@ export class PathBins {
 
   constructor (private tolerance = 2, private path: Point[] = []) {}
 
-  getNextDirection (pos: Point): Point | null {
+  getNextDirection (pos: Point): Vector2 | null {
     if (this.index >= this.path.length) {
       return null
     }
     const nextPoint = this.path[this.index]
     let dx = nextPoint.x - pos.x
     let dy = nextPoint.y - pos.y
+    const v = new Vector2(dx, dy)
     if (Math.abs(dx) < this.tolerance) {
-      dx = 0
+      v.x = 0
     }
     if (Math.abs(dy) < this.tolerance) {
-      dy = 0
+      v.y = 0
     }
-    if (dx === 0 && dy === 0) {
+    if (v.x === 0 && v.y === 0) {
       this.index++
       return this.getNextDirection(pos)
     } else {
-      return {
-        x: dx,
-        y: dy
-      }
+      return v.normalize()
     }
   }
 

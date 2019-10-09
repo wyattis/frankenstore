@@ -2,7 +2,6 @@ import * as EasyStar from 'easystarjs'
 import { Cell, Point } from '../types/Geom'
 import Tile = Phaser.Tilemaps.Tile
 import { randomInt } from 'goodish'
-import { Direction } from '../characters/Player'
 
 export default class PathFinder {
   private easyStar!: EasyStar.js
@@ -18,6 +17,7 @@ export default class PathFinder {
 
   private initEasyStar (map: Phaser.Tilemaps.Tilemap) {
     this.easyStar = new EasyStar.js()
+    this.easyStar.enableDiagonals()
     for (let y = 0; y < map.height; y++) {
       const row = []
       for (let x = 0; x < map.width; x++) {

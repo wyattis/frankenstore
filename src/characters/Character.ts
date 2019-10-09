@@ -73,24 +73,24 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
     }
   }
 
-  moveRight () {
+  moveRight (p: number = 1) {
     this.facing = Direction.RIGHT
-    this.body.setVelocityX(this.walkSpeed)
+    this.body.setVelocityX(this.walkSpeed * p)
   }
 
-  moveLeft () {
+  moveLeft (p: number = 1) {
     this.facing = Direction.LEFT
-    this.body.setVelocityX(-this.walkSpeed)
+    this.body.setVelocityX(-this.walkSpeed * p)
   }
 
-  moveDown () {
+  moveDown (p: number = 1) {
     this.facing = Direction.DOWN
-    this.body.setVelocityY(this.walkSpeed)
+    this.body.setVelocityY(this.walkSpeed * p)
   }
 
-  moveUp () {
+  moveUp (p: number = 1) {
     this.facing = Direction.UP
-    this.body.setVelocityY(-this.walkSpeed)
+    this.body.setVelocityY(-this.walkSpeed * p)
   }
 
 }

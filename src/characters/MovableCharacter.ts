@@ -65,17 +65,17 @@ export abstract class MovableCharacter extends Character {
       const p = this.path.getPoint()
       if (v && p) {
         if (v.x > 0) {
-          this.moveRight()
+          this.moveRight(Math.abs(v.x))
         } else if (v.x < 0) {
-          this.moveLeft()
+          this.moveLeft(Math.abs(v.x))
         } else {
           this.x = p.x
           this.body.setVelocityX(0)
         }
         if (v.y > 0) {
-          this.moveDown()
+          this.moveDown(Math.abs(v.y))
         } else if (v.y < 0) {
-          this.moveUp()
+          this.moveUp(Math.abs(v.y))
         } else {
           this.y = p.y
           this.body.setVelocityY(0)

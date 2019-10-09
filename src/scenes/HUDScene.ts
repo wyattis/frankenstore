@@ -18,7 +18,7 @@ export default class HUDScene extends Phaser.Scene {
   private muteButton!: Phaser.GameObjects.Image
   private introButton!: Phaser.GameObjects.Image
 
-  private selectedText!: Phaser.GameObjects.Text
+  private baseStockText!: Phaser.GameObjects.Text
   private theme!: Phaser.Sound.BaseSound
   private register!: Phaser.Sound.BaseSound
   private death!: Phaser.Sound.BaseSound
@@ -30,6 +30,12 @@ export default class HUDScene extends Phaser.Scene {
   private hudColor = 0x3F3938
   private boxPadding = 20
   private textPadding = 10
+  private stockPrice = 2
+  private baseStockPurchase = 50
+  private numStockPurchases = 1
+  private nextStockPurchase = 50
+  private numShirtPurchases = 0
+  private numFrankens = 0
 
   private introTextBox!: any
   private lossTextBox!: any
@@ -67,9 +73,8 @@ export default class HUDScene extends Phaser.Scene {
     this.displayStockText = this.add.text(200, 10, 'Display: 0')
     this.workersText = this.add.text(200, 30, 'Workers: 0')
 
-    this.moneyText = this.add.text(400, 10, 'Money: 0')
-    this.selectedText = this.add.text(400, 30, `Selected: ${this.gameScene.mainInputController.selectedCharacter && this.gameScene.mainInputController.selectedCharacter.constructor.name}`)
-    this.selectedText.setVisible(false).setActive(false)
+    this.moneyText = this.add.text(400, 10, 'Money: $0')
+    this.baseStockText = this.add.text(400, 30, `Inventory shipment: $${this.stockPrice * this.nextStockPurchase}`)
 
     this.updateStock()
     this.updateBodyParts()
@@ -79,7 +84,7 @@ export default class HUDScene extends Phaser.Scene {
       this.sound.mute = true
     }
 
-    this.muteButton = this.add.image(600, 25, SpriteSheet.MUTE, 0)
+    this.muteButton = this.add.image(700, 25, SpriteSheet.MUTE, 0)
     this.time.delayedCall(2 * 1000, () => {
       if (this.sound.mute) {
         this.muteButton.setFrame(0)
@@ -93,7 +98,7 @@ export default class HUDScene extends Phaser.Scene {
         this.muteButton.setFrame(1)
       }
     })
-    this.introButton = this.add.image(650, 25, SpriteSheet.INFO, 0)
+    this.introButton = this.add.image(750, 25, SpriteSheet.INFO, 0)
     this.introButton.setInteractive().on('pointerup', () => {
       if (!this.introTextBox.visible) {
         this.showIntro()
@@ -107,10 +112,18 @@ export default class HUDScene extends Phaser.Scene {
   }
 
   updateMoney () {
-    this.moneyText.setText(`Money: ${this.gameScene.gameState.money }`)
+    this.moneyText.setText(`Money: $${this.gameScene.gameState.money }`)
     if (this.gameScene.gameState.money > 2000) {
       this.win()
     }
+  }
+
+  updateWorkers () {
+    this.workersText.setText(`Workers: ${this.numFrankens}`)
+  }
+
+  updateNextStock () {
+    this.baseStockText.setText(`Inventory shipment: $${this.stockPrice * this.nextStockPurchase}`)
   }
 
   updateFrontInv () {
@@ -122,7 +135,7 @@ export default class HUDScene extends Phaser.Scene {
   }
 
   updateBodyParts () {
-    this.bodyPartsText.setText(`BodyParts: ${this.gameScene.gameState.bodyParts}`)
+    this.bodyPartsText.setText(`Body parts: ${this.gameScene.gameState.bodyParts}`)
   }
 
   create () {
@@ -261,12 +274,15 @@ export default class HUDScene extends Phaser.Scene {
 
   makeListeners () {
     const gameState = this.gameScene.gameState
-    this.gameScene.events.on(GameEvents.PURCHASE_INVENTORY, (amount: number) => {
+    this.gameScene.events.on(GameEvents.PURCHASE_INVENTORY, () => {
       console.log('event', GameEvents.PURCHASE_INVENTORY)
-      gameState.money -= 20 * amount
-      gameState.rearInventory += amount
+      gameState.money -= this.stockPrice * this.nextStockPurchase
+      gameState.rearInventory += this.nextStockPurchase
+      this.numStockPurchases++
+      this.nextStockPurchase = this.numStockPurchases * this.baseStockPurchase
       this.updateMoney()
       this.checkLose()
+      this.updateNextStock()
     })
     this.gameScene.events.on(GameEvents.GET_SHIPMENT, (quantity: number) => {
       console.log('event', GameEvents.GET_SHIPMENT)
@@ -283,18 +299,11 @@ export default class HUDScene extends Phaser.Scene {
       gameState.rearInventory -= quantity
       this.updateStock()
     })
-    this.gameScene.events.on(GameEvents.SELECT, (char: Character) => {
-      console.log('event', GameEvents.SELECT)
-      this.selectedText.setText(`Selected: ${char.constructor.name}`)
-    })
-    this.gameScene.events.on(GameEvents.DESELECT, () => {
-      console.log('event', GameEvents.DESELECT)
-      this.selectedText.setText('Selected: none')
-    })
     this.gameScene.events.on(GameEvents.CASH_REGISTER, (o: { inventory: number, income: number }) => {
       console.log('event', GameEvents.CASH_REGISTER)
       gameState.frontInventory -= o.inventory
       gameState.money += o.income
+      this.numShirtPurchases++
       this.updateMoney()
       this.updateFrontInv()
       this.register.play()
@@ -304,6 +313,7 @@ export default class HUDScene extends Phaser.Scene {
       gameState.money += shopper.money
       gameState.rearInventory += shopper.clothes
       gameState.frontInventory += shopper.inventory
+      this.gameScene.nShoppers--
       this.updateMoney()
       this.updateStock()
       this.updateFrontInv()
@@ -317,18 +327,22 @@ export default class HUDScene extends Phaser.Scene {
     this.gameScene.events.on(GameEvents.CUSTOMER_LEAVE, () => {
       const sound = randomFrom(this.doors)
       sound.play()
+      this.gameScene.nShoppers--
     })
     this.gameScene.events.on(GameEvents.CUSTOMER_ENTERS, () => {
       const sound = randomFrom(this.doors)
+      this.gameScene.nShoppers++
       sound.play()
     })
     this.gameScene.events.on(GameEvents.FRANK_BUILT, () => {
+      this.numFrankens++
       const sound = randomFrom(this.zaps)
       sound.play()
       this.updateBodyParts()
       this.updateMoney()
       this.updateStock()
       this.checkLose()
+      this.updateWorkers()
     })
     this.gameScene.events.on(GameEvents.LOSS, () => {
       this.gameScene.pause()

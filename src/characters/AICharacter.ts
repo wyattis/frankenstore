@@ -45,6 +45,7 @@ export abstract class AICharacter extends MovableCharacter {
       this.loopEvent.destroy()
       this.loopEvent = null
     }
+    this.body.setVelocity(0, 0)
   }
 
   unlock () {

@@ -8,7 +8,8 @@ export enum SpriteSheet {
   INFO = 'info',
   SHOPPER_1 = 'shooper 1',
   SHOPPER_2 = 'shooper 2',
-  SHOPPER_3 = 'shooper 3'
+  SHOPPER_3 = 'shooper 3',
+  THEME = 'theme'
 }
 export enum AnimStates {
   LEFT = 'left',
@@ -65,4 +66,5 @@ export enum AudioKeys {
   FRANK_ZAP_3 = 'zap 3'
 }
 
+export const gameBoyThemeKey = '?gameBoy'
 export const mapKey = 'shop'

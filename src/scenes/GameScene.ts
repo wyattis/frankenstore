@@ -3,7 +3,17 @@ import PathFinder from '../util/PathFinder'
 import { Shopper } from '../characters/Shopper'
 import { randomFrom, randomInt } from 'goodish'
 import { GameState } from '../types/GameState'
-import { AnimKeys, AnimStates, AudioKeys, CharKey, mapKey, SceneKey, SpriteSheet, TileTypes } from '../types/PhaserKeys'
+import {
+  AnimKeys,
+  AnimStates,
+  AudioKeys,
+  CharKey,
+  gameBoyThemeKey,
+  mapKey,
+  SceneKey,
+  SpriteSheet,
+  TileTypes
+} from '../types/PhaserKeys'
 import { MainInputController } from '../controllers/MainInputController'
 import { GameStateController } from '../controllers/GameStateController'
 import { GameEvents } from '../types/GameEvents'
@@ -14,10 +24,31 @@ import GenerateFrameNumbers = Phaser.Types.Animations.GenerateFrameNumbers
 import DynamicTilemapLayer = Phaser.Tilemaps.DynamicTilemapLayer
 import StaticTilemapLayer = Phaser.Tilemaps.StaticTilemapLayer
 import Tile = Phaser.Tilemaps.Tile
-import Rectangle = Phaser.Geom.Rectangle
 import Size = Phaser.Structs.Size
+import requireAll from '../requireAll'
 
+const sheets = requireAll(require.context('../../assets/images/', true, /\.(png|jpg)$/))
+console.log(sheets)
 declare const IS_DEV: boolean
+
+const spriteMap: [SpriteSheet, string, { frameWidth: number, frameHeight: number }][] = [
+  [SpriteSheet.PLAYER, 'shopkeeper.png', { frameWidth: 32, frameHeight: 48 }],
+  [SpriteSheet.SHOPPER_1, 'shopper1.png', { frameWidth: 32, frameHeight: 48 }],
+  [SpriteSheet.SHOPPER_2, 'shopper2.png', { frameWidth: 32, frameHeight: 48 }],
+  [SpriteSheet.SHOPPER_3, 'shopper3.png', { frameWidth: 32, frameHeight: 48 }],
+  [SpriteSheet.FRANKEN, 'franken.png', { frameWidth: 32, frameHeight: 46 }],
+  [SpriteSheet.FRANKEN_ZAP, 'franken-zap.png', { frameWidth: 90, frameHeight: 67 }],
+  [SpriteSheet.MESS, 'mess.png', { frameWidth: 37, frameHeight: 28 }]
+]
+
+const normalSprites: typeof spriteMap = []
+const gameBoySprites: typeof spriteMap = []
+for (const m of spriteMap) {
+  const colorId = '../../assets/images/color/' + m[1]
+  const gameboyId = '../../assets/images/gameboy/' + m[1]
+  normalSprites.push([m[0], require(colorId), m[2]])
+  gameBoySprites.push([m[0], require(gameboyId), m[2]])
+}
 
 export default class GameScene extends Phaser.Scene {
 
@@ -29,6 +60,7 @@ export default class GameScene extends Phaser.Scene {
   private layers: (DynamicTilemapLayer | StaticTilemapLayer)[] = []
   private depthTiles: Phaser.GameObjects.Image[] = []
   public mainInputController!: MainInputController
+  public isGameBoy: boolean = false
 
   public costs = {
     franken: {
@@ -58,6 +90,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   init (state?: GameState) {
+    this.isGameBoy = window.location.href.includes(gameBoyThemeKey)
     this.gameState = {
       time: 0,
       shoppers: [],
@@ -118,47 +151,24 @@ export default class GameScene extends Phaser.Scene {
   }
 
   loadSprites () {
-    this.load.spritesheet(SpriteSheet.PLAYER, require('../../assets/images/shopkeeper.png'), {
-      frameWidth: 32,
-      frameHeight: 48
-    })
-    this.load.spritesheet(SpriteSheet.SHOPPER_1, require('../../assets/images/shopper1.png'), {
-      frameWidth: 32,
-      frameHeight: 48
-    })
-    this.load.spritesheet(SpriteSheet.SHOPPER_2, require('../../assets/images/shopper2.png'), {
-      frameWidth: 32,
-      frameHeight: 48
-    })
-    this.load.spritesheet(SpriteSheet.SHOPPER_3, require('../../assets/images/shopper3.png'), {
-      frameWidth: 32,
-      frameHeight: 48
-    })
-    this.load.spritesheet(SpriteSheet.FRANKEN, require('../../assets/images/franken.png'), {
-      frameWidth: 32,
-      frameHeight: 46
-    })
-    this.load.spritesheet(SpriteSheet.FRANKEN_ZAP, require('../../assets/images/franken-zap.png'), {
-      frameWidth: 90,
-      frameHeight: 67
-    })
-    this.load.spritesheet(SpriteSheet.MESS, require('../../assets/images/mess.png'), {
-      frameWidth: 37,
-      frameHeight: 28
-    })
+    for (const c of (this.isGameBoy ? gameBoySprites : normalSprites)) {
+      console.log(c)
+      this.load.spritesheet(c[0], c[1], c[2])
+    }
   }
 
   preload () {
     this.loadAudio()
     this.loadSprites()
+    let path = '../../assets/images/' + this.isGameBoy ? 'gameboy' : 'color'
     if (IS_DEV) {
-      this.load.spritesheet(SpriteSheet.TILESHEET, require('../../assets/images/frankensheet.png'), {
+      this.load.spritesheet(SpriteSheet.TILESHEET, require(path + '/frankensheet.png'), {
         frameWidth: 16,
         frameHeight: 16
       })
       this.load.tilemapTiledJSON(mapKey, require('../../assets/maps/shop.json'))
     } else {
-      this.load.spritesheet(SpriteSheet.TILESHEET, require('../../assets/images/frankensheet-extruded.png'), {
+      this.load.spritesheet(SpriteSheet.TILESHEET, require(path + '/frankensheet-extruded.png'), {
         frameWidth: 16,
         frameHeight: 16,
         spacing: 2,

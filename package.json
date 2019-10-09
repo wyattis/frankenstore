@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --config=webpack.config.js",
     "build": "webpack --config=webpack.config.js",
     "dev": "cross-env NODE_ENV=development npm run build",
-    "extrude": "tile-extruder --tileWidth 16 --tileHeight 16 --input ./assets/images/frankensheet.png --output ./assets/images/frankensheet-extruded.png",
+    "extrude": "tile-extruder --tileWidth 16 --tileHeight 16 --input ./assets/images/color/frankensheet.png --output ./assets/images/color/frankensheet-extruded.png && tile-extruder --tileWidth 16 --tileHeight 16 --input ./assets/images/gameboy/frankensheet.png --output ./assets/images/gameboy/frankensheet-extruded.png",
     "prod": "npm run extrude && rm -rf docs/ && node ./fixmap.js && cross-env NODE_ENV=production npm run build"
   },
   "repository": {
@@ -27,6 +27,7 @@
     "phaser": "^3.19.0"
   },
   "devDependencies": {
+    "@types/webpack-env": "^1.14.0",
     "cross-env": "^6.0.3",
     "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",

@@ -1,4 +1,4 @@
-import { AudioKeys, SceneKey, SpriteSheet } from '../types/PhaserKeys'
+import { AudioKeys, gameBoyThemeKey, SceneKey, SpriteSheet } from '../types/PhaserKeys'
 import GameScene from './GameScene'
 import { GameEvents } from '../types/GameEvents'
 import { Character } from '../characters/Character'
@@ -17,6 +17,7 @@ export default class HUDScene extends Phaser.Scene {
   private moneyText!: Phaser.GameObjects.Text
   private muteButton!: Phaser.GameObjects.Image
   private introButton!: Phaser.GameObjects.Image
+  private themeButton!: Phaser.GameObjects.Image
 
   private baseStockText!: Phaser.GameObjects.Text
   private theme!: Phaser.Sound.BaseSound
@@ -55,6 +56,10 @@ export default class HUDScene extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 32
     })
+    this.load.spritesheet(SpriteSheet.THEME, require('../../assets/images/theme.png'), {
+      frameWidth: 64,
+      frameHeight: 32
+    })
     this.load.scenePlugin({
       key: 'rexuiplugin',
       url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/plugins/dist/rexuiplugin.min.js',
@@ -73,18 +78,20 @@ export default class HUDScene extends Phaser.Scene {
     this.displayStockText = this.add.text(200, 10, 'Display: 0')
     this.workersText = this.add.text(200, 30, 'Workers: 0')
 
-    this.moneyText = this.add.text(400, 10, 'Money: $0')
-    this.baseStockText = this.add.text(400, 30, `Inventory shipment: $${this.stockPrice * this.nextStockPurchase}`)
+    this.moneyText = this.add.text(350, 10, 'Money: $0')
+    this.baseStockText = this.add.text(350, 30, `Inventory shipment: $${this.stockPrice * this.nextStockPurchase}`)
+
+    this.muteButton = this.add.image(620, 25, SpriteSheet.MUTE, 0)
+    this.introButton = this.add.image(650, 25, SpriteSheet.INFO, 0)
+    this.themeButton = this.add.image(700, 25, SpriteSheet.THEME, this.gameScene.isGameBoy ? 0 : 1)
 
     this.updateStock()
+
     this.updateBodyParts()
     this.updateMoney()
-
     if (IS_DEV) {
       this.sound.mute = true
     }
-
-    this.muteButton = this.add.image(700, 25, SpriteSheet.MUTE, 0)
     this.time.delayedCall(2 * 1000, () => {
       if (this.sound.mute) {
         this.muteButton.setFrame(0)
@@ -98,11 +105,19 @@ export default class HUDScene extends Phaser.Scene {
         this.muteButton.setFrame(1)
       }
     })
-    this.introButton = this.add.image(750, 25, SpriteSheet.INFO, 0)
     this.introButton.setInteractive().on('pointerup', () => {
       if (!this.introTextBox.visible) {
         this.showIntro()
       }
+    })
+    this.themeButton.setInteractive().on('pointerup', () => {
+      let nextLoc = window.location.href
+      if (this.gameScene.isGameBoy) {
+        nextLoc = nextLoc.replace(gameBoyThemeKey, '')
+      } else {
+        nextLoc += gameBoyThemeKey
+      }
+      window.location.href = nextLoc
     })
   }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="40" height="33" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="1">
  <tileset firstgid="1" name="frankensheet" tilewidth="16" tileheight="16" tilecount="595" columns="35">
-  <image source="../images/frankensheet.png" width="560" height="272"/>
+  <image source="../images/color/frankensheet.png" width="560" height="272"/>
   <tile id="27">
    <properties>
     <property name="collides" type="bool" value="true"/>
@@ -695,6 +695,7 @@
   <tile id="329">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="3"/>
     <property name="type" value="horizshelf"/>
    </properties>
   </tile>
@@ -702,34 +703,40 @@
    <properties>
     <property name="colOffset" type="int" value="1"/>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="3"/>
     <property name="type" value="horizshelf"/>
    </properties>
   </tile>
   <tile id="331">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="3"/>
     <property name="type" value="horizshelf"/>
    </properties>
   </tile>
   <tile id="332">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="3"/>
     <property name="type" value="horizshelf"/>
    </properties>
   </tile>
   <tile id="333">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="3"/>
    </properties>
   </tile>
   <tile id="334">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="3"/>
    </properties>
   </tile>
   <tile id="335">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="3"/>
    </properties>
   </tile>
   <tile id="336">
@@ -891,6 +898,7 @@
   <tile id="364">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="2"/>
     <property name="type" value="horizshelf"/>
     <property name="yOffset" type="int" value="2"/>
    </properties>
@@ -899,6 +907,7 @@
    <properties>
     <property name="colOffset" type="int" value="1"/>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="2"/>
     <property name="stocked" type="bool" value="true"/>
     <property name="type" value="horizshelf"/>
     <property name="yOffset" type="int" value="2"/>
@@ -907,6 +916,7 @@
   <tile id="366">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="2"/>
     <property name="type" value="horizshelf"/>
     <property name="yOffset" type="int" value="2"/>
    </properties>
@@ -914,6 +924,7 @@
   <tile id="367">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="2"/>
     <property name="type" value="horizshelf"/>
     <property name="yOffset" type="int" value="2"/>
    </properties>
@@ -921,16 +932,19 @@
   <tile id="368">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="2"/>
    </properties>
   </tile>
   <tile id="369">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="2"/>
    </properties>
   </tile>
   <tile id="370">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="2"/>
    </properties>
   </tile>
   <tile id="371">
@@ -1062,6 +1076,7 @@
   <tile id="399">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="1"/>
     <property name="type" value="horizshelf"/>
     <property name="yOffset" type="int" value="1"/>
    </properties>
@@ -1070,6 +1085,7 @@
    <properties>
     <property name="colOffset" type="int" value="1"/>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="1"/>
     <property name="stocked" type="bool" value="true"/>
     <property name="type" value="horizshelf"/>
     <property name="yOffset" type="int" value="1"/>
@@ -1078,6 +1094,7 @@
   <tile id="401">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="1"/>
     <property name="type" value="horizshelf"/>
     <property name="yOffset" type="int" value="1"/>
    </properties>
@@ -1085,6 +1102,7 @@
   <tile id="402">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="1"/>
     <property name="type" value="horizshelf"/>
     <property name="yOffset" type="int" value="1"/>
    </properties>
@@ -1092,16 +1110,19 @@
   <tile id="403">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="1"/>
    </properties>
   </tile>
   <tile id="404">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="1"/>
    </properties>
   </tile>
   <tile id="405">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="height" type="int" value="1"/>
    </properties>
   </tile>
   <tile id="406">

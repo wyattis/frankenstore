@@ -61,6 +61,7 @@ export enum AudioKeys {
   SHOPPER_DEATH = 'death',
   DOOR_1 = 'door 1',
   DOOR_2 = 'door 2',
+  DOOR_3 = 'door 3',
   FRANK_ZAP_1 = 'zap 1',
   FRANK_ZAP_2 = 'zap 2',
   FRANK_ZAP_3 = 'zap 3'

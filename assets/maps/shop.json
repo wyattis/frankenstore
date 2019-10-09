@@ -57,7 +57,7 @@
         {
          "columns":35,
          "firstgid":1,
-         "image":"..\/images\/frankensheet.png",
+         "image":"..\/images\/color\/frankensheet.png",
          "imageheight":272,
          "imagewidth":560,
          "margin":0,
@@ -1733,6 +1733,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"height",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
                          "name":"type",
                          "type":"string",
                          "value":"horizshelf"
@@ -1752,6 +1757,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"height",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
                          "name":"type",
                          "type":"string",
                          "value":"horizshelf"
@@ -1764,6 +1774,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"height",
+                         "type":"int",
+                         "value":3
                         }, 
                         {
                          "name":"type",
@@ -1780,6 +1795,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"height",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
                          "name":"type",
                          "type":"string",
                          "value":"horizshelf"
@@ -1792,6 +1812,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"height",
+                         "type":"int",
+                         "value":3
                         }]
                 }, 
                 {
@@ -1801,6 +1826,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"height",
+                         "type":"int",
+                         "value":3
                         }]
                 }, 
                 {
@@ -1810,6 +1840,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"height",
+                         "type":"int",
+                         "value":3
                         }]
                 }, 
                 {
@@ -2201,6 +2236,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"height",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
                          "name":"type",
                          "type":"string",
                          "value":"horizshelf"
@@ -2223,6 +2263,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"height",
+                         "type":"int",
+                         "value":2
                         }, 
                         {
                          "name":"stocked",
@@ -2249,6 +2294,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"height",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
                          "name":"type",
                          "type":"string",
                          "value":"horizshelf"
@@ -2268,6 +2318,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"height",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
                          "name":"type",
                          "type":"string",
                          "value":"horizshelf"
@@ -2285,6 +2340,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"height",
+                         "type":"int",
+                         "value":2
                         }]
                 }, 
                 {
@@ -2294,6 +2354,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"height",
+                         "type":"int",
+                         "value":2
                         }]
                 }, 
                 {
@@ -2303,6 +2368,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"height",
+                         "type":"int",
+                         "value":2
                         }]
                 }, 
                 {
@@ -2624,6 +2694,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"height",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"type",
                          "type":"string",
                          "value":"horizshelf"
@@ -2646,6 +2721,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"height",
+                         "type":"int",
+                         "value":1
                         }, 
                         {
                          "name":"stocked",
@@ -2672,6 +2752,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"height",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"type",
                          "type":"string",
                          "value":"horizshelf"
@@ -2691,6 +2776,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"height",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
                          "name":"type",
                          "type":"string",
                          "value":"horizshelf"
@@ -2708,6 +2798,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"height",
+                         "type":"int",
+                         "value":1
                         }]
                 }, 
                 {
@@ -2717,6 +2812,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"height",
+                         "type":"int",
+                         "value":1
                         }]
                 }, 
                 {
@@ -2726,6 +2826,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"height",
+                         "type":"int",
+                         "value":1
                         }]
                 }, 
                 {

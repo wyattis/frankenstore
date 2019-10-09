@@ -1,4 +1,4 @@
-import { AnimKeys, AnimStates, CharKey, TileTypes } from '../types/PhaserKeys'
+import { AnimStates, CharKey, TileTypes } from '../types/PhaserKeys'
 import { MovableCharacter } from './MovableCharacter'
 import GameScene from '../scenes/GameScene'
 import { ActionableCharacter } from './ActionableCharacter'

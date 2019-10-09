@@ -32,6 +32,7 @@ export default class HUDScene extends Phaser.Scene {
   private boxPadding = 20
   private textPadding = 10
   private stockPrice = 2
+  private winMoney = 3000
   private baseStockPurchase = 50
   private numStockPurchases = 1
   private nextStockPurchase = 50
@@ -41,6 +42,7 @@ export default class HUDScene extends Phaser.Scene {
   private introTextBox!: any
   private lossTextBox!: any
   private winTextBox!: any
+  private hasWon: boolean = false
   private warningPopups: { [key in GameEvents]?: any } = {}
 
   public rexUI!: any
@@ -122,13 +124,15 @@ export default class HUDScene extends Phaser.Scene {
   }
 
   win () {
-    const winText = `Congrats! You're officially a sociopath! Enjoy the rest of the game jam!`
+    if (this.hasWon) return
+    this.hasWon = true
+    const winText = `Congrats! You've finally earned enough money to purchase another store! This is where our journey ends for now. Enjoy the rest of the game jam and be sure to try out the GameBoy theme.`
     this.winTextBox.setVisible(true).setActive(true).start(winText, 30)
   }
 
   updateMoney () {
     this.moneyText.setText(`Money: $${this.gameScene.gameState.money }`)
-    if (this.gameScene.gameState.money > 2000) {
+    if (this.gameScene.gameState.money > this.winMoney) {
       this.win()
     }
   }
@@ -167,7 +171,7 @@ export default class HUDScene extends Phaser.Scene {
   makeWarnings () {
     const costs = this.gameScene.costs.franken
     const warnings: [GameEvents, string][] = [
-      [GameEvents.CANT_BUILD_FRANK, `It costs ${costs.money} money, ${costs.bodyParts} body parts, and ${costs.inventory} inventory to build a franken-worker. Make some sales or find another way to build one!`]
+      [GameEvents.CANT_BUILD_FRANK, `It costs $${costs.money}, ${costs.bodyParts} body parts, and ${costs.inventory} inventory to build a franken-worker. Make some sales or find another way to build one!`]
     ]
     for (const [key, text] of warnings) {
       const box = this.makeBox(this.cameras.main.width * 2 / 3, this.cameras.main.height / 6, text)
@@ -235,7 +239,7 @@ export default class HUDScene extends Phaser.Scene {
       if (this.winTextBox.isTyping) {
         this.winTextBox.stop(true)
       } else {
-        this.restart()
+        this.winTextBox.setVisible(false).setActive(false)
       }
     })
   }
@@ -264,7 +268,7 @@ export default class HUDScene extends Phaser.Scene {
     this.introTextBox.setVisible(true)
     this.introTextBox.setActive(true)
     const startText = `It's the grand opening of "Shirts for money"! You don't have any workers or inventory. ` +
-      `How can you make ends meet? You have to pay for your inventory shipment soon, try to make some money by talking to customers. ` +
+      `How can you make ends meet? You have to pay for your inventory shipment soon, make some money by talking to customers and find a way to build up your workforce.` +
       `\n\nUse the mouse to select the shopkeeper and move him around. Click on objects such as the operating table to interact with them.`
     this.introTextBox.start(startText, 30)
   }
@@ -277,7 +281,7 @@ export default class HUDScene extends Phaser.Scene {
     this.theme.play()
     this.register = this.sound.add(AudioKeys.REGISTER)
     this.death = this.sound.add(AudioKeys.SHOPPER_DEATH)
-    this.doors = [AudioKeys.DOOR_1, AudioKeys.DOOR_2].map(key => this.sound.add(key))
+    this.doors = [AudioKeys.DOOR_2, AudioKeys.DOOR_3].map(key => this.sound.add(key))
     this.zaps = [AudioKeys.FRANK_ZAP_1, AudioKeys.FRANK_ZAP_2,AudioKeys.FRANK_ZAP_3].map(key => this.sound.add(key))
   }
 

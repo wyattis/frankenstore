@@ -17,7 +17,7 @@ export class Shopper extends AICharacter {
   public bodyParts: number = 5
   public inventory: number = 0
   public purchaseProbability = 0.3
-  public leaveProbability = 0.2
+  public leaveProbability = 0.15
   public multiPurchaseProbability = 0.3
   private currentAction: string | null = null
 
@@ -85,6 +85,7 @@ export class Shopper extends AICharacter {
       this.pauseDecisions()
       await this.moveToTile(randomFrom(this.scene.staticObjects.frontDoor))
       this.once(CharacterEvent.PATH_COMPLETE, () => {
+        this.scene.events.emit(GameEvents.CUSTOMER_LEAVE, this)
         this.destroy(true)
       })
     } catch (err) {

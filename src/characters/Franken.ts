@@ -80,6 +80,9 @@ export class Franken extends AICharacter {
           this.pauseDecisions()
           await this.moveToTile(nextTile)
           this.once(CharacterEvent.PATH_COMPLETE, () => {
+            if (this.scene.gameState.rearInventory <= 0) {
+              return this.deferredDecision()
+            }
             this.inventory += this.scene.gameState.rearInventory >= this.strength ? this.strength : this.scene.gameState.rearInventory
             this.scene.events.emit(GameEvents.REDUCE_STOCK, this.inventory)
             this.isCarrying = true

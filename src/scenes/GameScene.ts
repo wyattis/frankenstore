@@ -99,7 +99,7 @@ export default class GameScene extends Phaser.Scene {
       rearInventory: IS_DEV ? 3 : 0,
       frontInventory: 0,
       bodyParts: IS_DEV ? this.costs.franken.bodyParts : 0,
-      price: 50
+      price: 40
     } as GameState
   }
 
@@ -145,6 +145,7 @@ export default class GameScene extends Phaser.Scene {
     this.load.audio(AudioKeys.SHOPPER_DEATH, require('../../assets/audio/effects/snd-shopper-death-1.wav'))
     this.load.audio(AudioKeys.DOOR_1, require('../../assets/audio/effects/snd-door-1.wav'))
     this.load.audio(AudioKeys.DOOR_2, require('../../assets/audio/effects/snd-door-2.wav'))
+    this.load.audio(AudioKeys.DOOR_3, require('../../assets/audio/effects/snd-door-3.wav'))
     this.load.audio(AudioKeys.FRANK_ZAP_1, require('../../assets/audio/effects/snd-zap-1.wav'))
     this.load.audio(AudioKeys.FRANK_ZAP_2, require('../../assets/audio/effects/snd-zap-2.wav'))
     this.load.audio(AudioKeys.FRANK_ZAP_3, require('../../assets/audio/effects/snd-zap-3.wav'))
@@ -368,10 +369,9 @@ export default class GameScene extends Phaser.Scene {
   }
 
   addShopper () {
-    if (this.nShoppers >= 10) return
+    console.log('add shopper', this.nShoppers)
+    if (this.nShoppers >= 100) return
     const frontDoorTile = randomFrom(this.staticObjects.frontDoor)
-    const randInt = randomInt(0, 3)
-    console.log('add shopper', randInt)
     const keys = randomFrom([[SpriteSheet.SHOPPER_1, CharKey.SHOPPER1], [SpriteSheet.SHOPPER_2, CharKey.SHOPPER2], [SpriteSheet.SHOPPER_3, CharKey.SHOPPER3]] as [SpriteSheet, CharKey][])
     const shopper = new Shopper(this, frontDoorTile.pixelX, frontDoorTile.pixelY, keys[0], keys[1])
     this.add.existing(shopper)

@@ -101,7 +101,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   resize (gameSize: Size, baseSize: Size, displaySize: Size, resolution: number) {
-    debugger
     this.cameras.resize(gameSize.width, gameSize.height)
   }
 

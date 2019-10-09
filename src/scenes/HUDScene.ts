@@ -33,6 +33,7 @@ export default class HUDScene extends Phaser.Scene {
 
   private introTextBox!: any
   private lossTextBox!: any
+  private winTextBox!: any
   private warningPopups: { [key in GameEvents]?: any } = {}
 
   public rexUI!: any
@@ -100,8 +101,16 @@ export default class HUDScene extends Phaser.Scene {
     })
   }
 
+  win () {
+    const winText = `Congrats! You're officially a sociopath! Enjoy the rest of the game jam!`
+    this.winTextBox.setVisible(true).setActive(true).start(winText, 30)
+  }
+
   updateMoney () {
     this.moneyText.setText(`Money: ${this.gameScene.gameState.money }`)
+    if (this.gameScene.gameState.money > 2000) {
+      this.win()
+    }
   }
 
   updateFrontInv () {
@@ -191,7 +200,20 @@ export default class HUDScene extends Phaser.Scene {
     })
 
     this.lossTextBox = this.makeBox(this.cameras.main.width / 2, boxHeight).setOrigin(0).layout().setInteractive().setVisible(false).setActive(false)
+    this.winTextBox = this.makeBox(this.cameras.main.width / 4, this.cameras.main.width / 2).setOrigin(0).layout().setInteractive().setVisible(false).setActive(false)
+    this.winTextBox.on('pointerup', () => {
+      if (this.winTextBox.isTyping) {
+        this.winTextBox.stop(true)
+      } else {
+        this.restart()
+      }
+    })
+  }
 
+  restart () {
+    this.sound.stopAll()
+    this.scene.stop()
+    this.gameScene.scene.restart()
   }
 
   showLoss () {
@@ -200,9 +222,7 @@ export default class HUDScene extends Phaser.Scene {
       if (this.lossTextBox.isTyping) {
         this.lossTextBox.stop(true)
       } else {
-        this.sound.stopAll()
-        this.scene.stop()
-        this.gameScene.scene.restart()
+        this.restart()
       }
     })
     this.lossTextBox.start(`You lose! You weren't able to pay for your inventory shipment this month!`, 30)

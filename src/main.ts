@@ -23,17 +23,14 @@ const config = {
     GameScene,
     HUDScene
     // MenuScene
-  ]
-}
-
-if (IS_DEV) {
-  // @ts-ignore
-  // config.scale = {
-  //   mode: Phaser.Scale.RESIZE,
-  //   parent: 'game',
-  //   width: '100%',
-  //   height: '100%'
-  // }
+  ],
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    parent: 'game',
+    // width: '100%',
+    // height: '100%'
+  }
 }
 
 new Phaser.Game(config)

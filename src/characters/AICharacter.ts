@@ -2,6 +2,7 @@ import { MovableCharacter } from './MovableCharacter'
 import GameScene from '../scenes/GameScene'
 import { CharKey } from '../types/PhaserKeys'
 import TimerEvent = Phaser.Time.TimerEvent
+import { randomInt } from 'goodish'
 
 declare const IS_DEV: boolean
 export abstract class AICharacter extends MovableCharacter {
@@ -9,7 +10,9 @@ export abstract class AICharacter extends MovableCharacter {
   protected decisionRate = 10 * 1000
   protected isDeciding = false
   protected loopEvent!: TimerEvent | null
-  public deferredDecisionTime = IS_DEV ? 2000 : 5 * 1000
+  public deferredDecisionMax = 5 * 1000
+  public deferredDecisionMin = 2 * 1000
+  // public deferredDecisionTime = IS_DEV ? 2000 : 5 * 1000
   private deferredEvent!: TimerEvent | null
 
   constructor (scene: GameScene, x: number, y: number, texture: string, charKey: CharKey) {
@@ -67,7 +70,7 @@ export abstract class AICharacter extends MovableCharacter {
   deferredDecision () {
     this.log('deferred decision start')
     if (!this.deferredEvent) {
-      this.deferredEvent = this.scene.time.delayedCall(this.deferredDecisionTime, this.startDecisions, [], this)
+      this.deferredEvent = this.scene.time.delayedCall(randomInt(this.deferredDecisionMin, this.deferredDecisionMax), this.startDecisions, [], this)
     }
   }
 

@@ -23,7 +23,7 @@ export class Shopper extends AICharacter {
 
   constructor (public scene: GameScene, x: number, y: number, texture: string, charKey: CharKey) {
     super(scene, x, y, texture, charKey)
-    this.money = randomFrom([25, 50, 75])
+    this.money = randomFrom([10, 20, 30, 40])
     if (charKey === CharKey.SHOPPER1) {
       this.setSize(22, 43)
     } else if (charKey === CharKey.SHOPPER2) {

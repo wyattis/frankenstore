@@ -13,5 +13,7 @@ export enum GameEvents {
   CUSTOMER_LEAVE = 'customer leave',
   FRANK_BUILT = 'frank built',
   LOSS = 'debt',
-  WIN = 'win'
+  WIN = 'win',
+  CANT_BUILD_FRANK = 'cant build frank',
+
 }

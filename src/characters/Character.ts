@@ -3,6 +3,7 @@ import { CharacterStateAnimMap } from '../types/CharacterStateAnimMap'
 import { AnimStates, CharKey } from '../types/PhaserKeys'
 import GameScene from '../scenes/GameScene'
 
+declare const IS_DEV: boolean
 export abstract class Character extends Phaser.GameObjects.Sprite {
 
   protected facing: Direction = Direction.DOWN
@@ -18,10 +19,9 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
     super(scene, x, y, texture, charKey)
     this.makeAnimMap(charKey)
     this.anims.play(this.animMap.down)
-    this.scene.physics.add.existing(this)
-    this.setOrigin(0.2, .8)
     this.setDepth(2)
     this.tileHeight = scene.map.tileHeight
+    this.scene.physics.add.existing(this)
   }
 
   private makeAnimMap (key: string) {
@@ -37,6 +37,10 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
     }
   }
 
+  log (...args: any[]) {
+    console.log(`${this.constructor.name}:`, ...args)
+  }
+
   preUpdate (time: number, delta: number): void {
     super.preUpdate(time, delta)
     // if (this.isLocked) return
@@ -47,23 +51,23 @@ export abstract class Character extends Phaser.GameObjects.Sprite {
      * of doing the string comparison
      */
     if (this.blockStateChange) return
-    if (this.body.velocity.y > 0 && this.anims.currentAnim.key !== this.animMap.downWalk) {
-      this.anims.play(this.animMap.downWalk)
-    } else if (this.body.velocity.y < 0 && this.anims.currentAnim.key !== this.animMap.upWalk) {
-      this.anims.play(this.animMap.upWalk)
-    } else if (this.body.velocity.x > 0 && this.anims.currentAnim.key !== this.animMap.rightWalk) {
-      this.anims.play(this.animMap.rightWalk)
-    } else if (this.body.velocity.x < 0 && this.anims.currentAnim.key !== this.animMap.leftWalk) {
-      this.anims.play(this.animMap.leftWalk)
+    if (this.body.velocity.y > 0) {
+      this.anims.play(this.animMap.downWalk, true)
+    } else if (this.body.velocity.y < 0) {
+      this.anims.play(this.animMap.upWalk, true)
+    } else if (this.body.velocity.x > 0) {
+      this.anims.play(this.animMap.rightWalk, true)
+    } else if (this.body.velocity.x < 0) {
+      this.anims.play(this.animMap.leftWalk, true)
     } else if (this.body.velocity.y === 0 && this.body.velocity.x === 0) {
-      if (this.facing === Direction.DOWN && this.anims.currentAnim.key !== this.animMap.down) {
-        this.anims.play(this.animMap.down)
-      } else if (this.facing === Direction.UP && this.anims.currentAnim.key !== this.animMap.up) {
-        this.anims.play(this.animMap.up)
-      } else if (this.facing === Direction.RIGHT && this.anims.currentAnim.key !== this.animMap.right) {
-        this.anims.play(this.animMap.right)
-      } else if (this.facing === Direction.LEFT && this.anims.currentAnim.key !== this.animMap.left) {
-        this.anims.play(this.animMap.left)
+      if (this.facing === Direction.DOWN) {
+        this.anims.play(this.animMap.down, true)
+      } else if (this.facing === Direction.UP) {
+        this.anims.play(this.animMap.up, true)
+      } else if (this.facing === Direction.RIGHT) {
+        this.anims.play(this.animMap.right, true)
+      } else if (this.facing === Direction.LEFT) {
+        this.anims.play(this.animMap.left, true)
       }
     }
   }

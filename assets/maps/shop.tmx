@@ -230,6 +230,16 @@
     <property name="height" type="int" value="1"/>
    </properties>
   </tile>
+  <tile id="185">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="186">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
   <tile id="193">
    <properties>
     <property name="collides" type="bool" value="true"/>
@@ -344,6 +354,12 @@
    <properties>
     <property name="collides" type="bool" value="true"/>
     <property name="type" value="operating"/>
+   </properties>
+  </tile>
+  <tile id="233">
+   <properties>
+    <property name="type" value="storageshelf"/>
+    <property name="yOffset" type="int" value="1"/>
    </properties>
   </tile>
   <tile id="237">
@@ -704,19 +720,16 @@
   <tile id="333">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="horizshelf"/>
    </properties>
   </tile>
   <tile id="334">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="horizshelf"/>
    </properties>
   </tile>
   <tile id="335">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="horizshelf"/>
    </properties>
   </tile>
   <tile id="336">
@@ -749,22 +762,16 @@
   <tile id="339">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="storageshelf"/>
-    <property name="yOffset" type="int" value="3"/>
    </properties>
   </tile>
   <tile id="340">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="storageshelf"/>
-    <property name="yOffset" type="int" value="3"/>
    </properties>
   </tile>
   <tile id="341">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="storageshelf"/>
-    <property name="yOffset" type="int" value="3"/>
    </properties>
   </tile>
   <tile id="342">
@@ -914,22 +921,16 @@
   <tile id="368">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="horizshelf"/>
-    <property name="yOffset" type="int" value="2"/>
    </properties>
   </tile>
   <tile id="369">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="horizshelf"/>
-    <property name="yOffset" type="int" value="2"/>
    </properties>
   </tile>
   <tile id="370">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="horizshelf"/>
-    <property name="yOffset" type="int" value="2"/>
    </properties>
   </tile>
   <tile id="371">
@@ -962,22 +963,16 @@
   <tile id="374">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="storageshelf"/>
-    <property name="yOffset" type="int" value="2"/>
    </properties>
   </tile>
   <tile id="375">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="storageshelf"/>
-    <property name="yOffset" type="int" value="2"/>
    </properties>
   </tile>
   <tile id="376">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="storageshelf"/>
-    <property name="yOffset" type="int" value="2"/>
    </properties>
   </tile>
   <tile id="377">
@@ -1097,64 +1092,46 @@
   <tile id="403">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="horizshelf"/>
-    <property name="yOffset" type="int" value="1"/>
    </properties>
   </tile>
   <tile id="404">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="horizshelf"/>
-    <property name="yOffset" type="int" value="1"/>
    </properties>
   </tile>
   <tile id="405">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="horizshelf"/>
-    <property name="yOffset" type="int" value="1"/>
    </properties>
   </tile>
   <tile id="406">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="storageshelf"/>
-    <property name="yOffset" type="int" value="1"/>
    </properties>
   </tile>
   <tile id="407">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="storageshelf"/>
-    <property name="yOffset" type="int" value="1"/>
    </properties>
   </tile>
   <tile id="408">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="storageshelf"/>
-    <property name="yOffset" type="int" value="1"/>
    </properties>
   </tile>
   <tile id="409">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="storageshelf"/>
-    <property name="yOffset" type="int" value="1"/>
    </properties>
   </tile>
   <tile id="410">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="storageshelf"/>
-    <property name="yOffset" type="int" value="1"/>
    </properties>
   </tile>
   <tile id="411">
    <properties>
     <property name="collides" type="bool" value="true"/>
-    <property name="type" value="storageshelf"/>
-    <property name="yOffset" type="int" value="1"/>
    </properties>
   </tile>
   <tile id="434">

@@ -39,8 +39,8 @@ export class MainInputController {
 
   public deselect () {
     console.log('main deselect')
-    this.selectedCharacter = null
-    this.scene.events.emit(GameEvents.DESELECT)
+    // this.selectedCharacter = null
+    // this.scene.events.emit(GameEvents.DESELECT)
   }
 
   public enableCharacter (char: MovableCharacter) {

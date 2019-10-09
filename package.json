@@ -23,13 +23,14 @@
   "homepage": "https://github.com/wyattis/frankenstore#readme",
   "dependencies": {
     "easystarjs": "^0.4.3",
-    "goodish": "0.0.7",
+    "goodish": "0.0.8",
     "phaser": "^3.19.0"
   },
   "devDependencies": {
     "cross-env": "^6.0.3",
     "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",
+    "terser-webpack-plugin": "^2.1.2",
     "ts-loader": "^6.2.0",
     "tslint-config-standard": "^8.0.1",
     "typescript": "^3.6.3",

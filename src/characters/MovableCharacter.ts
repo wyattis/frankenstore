@@ -32,7 +32,6 @@ export abstract class MovableCharacter extends Character {
       const pathPoint = this.pathFinder.cellPointToPoint(cell)
       this.path.addPoint(pathPoint)
     }
-    console.log('moveTo', this.constructor.name, 'path', this.path)
     this.isFollowingPath = true
     this.onPathReset()
     this.emit(CharacterEvent.PATH_RESET)
@@ -54,13 +53,13 @@ export abstract class MovableCharacter extends Character {
       pathPoint.y += this.pathFinder.tileHeight / 2
       this.path.addPoint(pathPoint)
     }
-    console.log('moveToTile', this.constructor.name, 'path', this.path)
     this.isFollowingPath = true
     this.onPathReset()
   }
 
   preUpdate (time: number, delta: number) {
     super.preUpdate(time, delta)
+    if (this.isLocked) return
     if (!this.path.isDone) {
       const v = this.path.getNextDirection(this)
       const p = this.path.getPoint()

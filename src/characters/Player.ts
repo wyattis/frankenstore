@@ -3,14 +3,11 @@ import { MovableCharacter } from './MovableCharacter'
 import GameScene from '../scenes/GameScene'
 import { ActionableCharacter } from './ActionableCharacter'
 import { Action, CharacterEvent } from '../types/Action'
-import Tile = Phaser.Tilemaps.Tile
 import { GameEvents } from '../types/GameEvents'
 import { distanceSquaredBetweenPoints } from '../util/M'
 import { Shopper } from './Shopper'
-import GameObject = Phaser.GameObjects.GameObject
 import Mess from '../objects/Mess'
 import { InteractiveTile } from '../types/InteractiveTile'
-import ANIMATION_COMPLETE = Phaser.Animations.Events.ANIMATION_COMPLETE
 import { Point } from '../types/Geom'
 
 export enum Direction {
@@ -34,21 +31,22 @@ export class Player extends ActionableCharacter {
   constructor (public scene: GameScene, x: number, y: number, texture: string) {
     super(scene, x, y, texture, CharKey.PLAYER)
     this.actionRadius2 = Math.pow(2 * Math.max(this.scene.map.tileWidth, this.scene.map.tileHeight), 2)
+    this.setSize(25, 37).setOrigin(0, .8)
   }
 
   buildFranken () {
     const d = distanceSquaredBetweenPoints(this.scene.tableLocation, this)
-    console.log(d, this.actionRadius2)
+    this.log(d, this.actionRadius2)
     if (d > this.actionRadius2) {
       this.moveTo(this.scene.tableLocation)
     } else {
-      console.log('build franken')
+      this.log('build franken')
       this.scene.events.emit(GameEvents.BUILD_FRANKEN)
     }
   }
 
   async killChar (char: Shopper) {
-    console.log('Player kill char', char)
+    this.log('Player kill char', char)
     if (this.actionState === 'kill char') return
     this.actionState = 'kill char'
     const UP_KEY = `${this.charKey}-stab-up`
@@ -61,18 +59,18 @@ export class Player extends ActionableCharacter {
     try {
       await this.moveTo(movePoint)
       this.once(CharacterEvent.PATH_COMPLETE, () => {
-        console.log('Player path complete')
+        this.log('Player path complete')
         this.stab(`${this.charKey}-${AnimStates.DOWN}`, DOWN_KEY, char)
       })
     } catch (err) {
-      console.log('Skipping player movement')
+      this.log('Skipping player movement')
       this.stab(`${this.charKey}-${AnimStates.DOWN}`, DOWN_KEY, char)
     }
 
   }
 
   stab (dirAnimKey: string, stabKey: string, char: Shopper) {
-    console.log('turning player', dirAnimKey)
+    this.log('turning player', dirAnimKey)
     this.blockStateChange = true
     this.once('animationcomplete', () => {
       this.scene.time.delayedCall(1, () => {
@@ -92,7 +90,7 @@ export class Player extends ActionableCharacter {
   }
 
   actOn (obj: Phaser.GameObjects.Container) {
-    console.log('act on', obj)
+    this.log('act on', obj)
     const closeEnoughToAct = distanceSquaredBetweenPoints(this, obj) < this.actionRadius2
     if (obj instanceof Shopper) {
       if (closeEnoughToAct) {
@@ -112,7 +110,7 @@ export class Player extends ActionableCharacter {
   }
 
   actOnTile (tile: InteractiveTile) {
-    console.log('act on tile', tile)
+    this.log('act on tile', tile)
     switch (tile.properties.type) {
       case TileTypes.OPERATING_TABLE:
         this.buildFranken()

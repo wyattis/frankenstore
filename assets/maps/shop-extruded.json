@@ -3238,6 +3238,26 @@
           ]
         },
         {
+          "id": 185,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 186,
+          "properties": [
+            {
+              "name": "collides",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
           "id": 193,
           "properties": [
             {
@@ -3589,6 +3609,21 @@
               "name": "type",
               "type": "string",
               "value": "operating"
+            }
+          ]
+        },
+        {
+          "id": 233,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "storageshelf"
+            },
+            {
+              "name": "yOffset",
+              "type": "int",
+              "value": 1
             }
           ]
         },
@@ -4519,11 +4554,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "horizshelf"
             }
           ]
         },
@@ -4534,11 +4564,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "horizshelf"
             }
           ]
         },
@@ -4549,11 +4574,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "horizshelf"
             }
           ]
         },
@@ -4654,16 +4674,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "storageshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 3
             }
           ]
         },
@@ -4674,16 +4684,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "storageshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 3
             }
           ]
         },
@@ -4694,16 +4694,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "storageshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 3
             }
           ]
         },
@@ -5089,16 +5079,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "horizshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 2
             }
           ]
         },
@@ -5109,16 +5089,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "horizshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 2
             }
           ]
         },
@@ -5129,16 +5099,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "horizshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 2
             }
           ]
         },
@@ -5239,16 +5199,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "storageshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 2
             }
           ]
         },
@@ -5259,16 +5209,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "storageshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 2
             }
           ]
         },
@@ -5279,16 +5219,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "storageshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 2
             }
           ]
         },
@@ -5599,16 +5529,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "horizshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 1
             }
           ]
         },
@@ -5619,16 +5539,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "horizshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 1
             }
           ]
         },
@@ -5639,16 +5549,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "horizshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 1
             }
           ]
         },
@@ -5659,16 +5559,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "storageshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 1
             }
           ]
         },
@@ -5679,16 +5569,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "storageshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 1
             }
           ]
         },
@@ -5699,16 +5579,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "storageshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 1
             }
           ]
         },
@@ -5719,16 +5589,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "storageshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 1
             }
           ]
         },
@@ -5739,16 +5599,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "storageshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 1
             }
           ]
         },
@@ -5759,16 +5609,6 @@
               "name": "collides",
               "type": "bool",
               "value": true
-            },
-            {
-              "name": "type",
-              "type": "string",
-              "value": "storageshelf"
-            },
-            {
-              "name": "yOffset",
-              "type": "int",
-              "value": 1
             }
           ]
         },

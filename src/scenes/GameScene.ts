@@ -1,7 +1,7 @@
 import { Player } from '../characters/Player'
 import PathFinder from '../util/PathFinder'
 import { Shopper } from '../characters/Shopper'
-import { randomFrom } from 'goodish'
+import { randomFrom, randomInt } from 'goodish'
 import { GameState } from '../types/GameState'
 import { AnimKeys, AnimStates, AudioKeys, CharKey, mapKey, SceneKey, SpriteSheet, TileTypes } from '../types/PhaserKeys'
 import { MainInputController } from '../controllers/MainInputController'
@@ -14,6 +14,8 @@ import GenerateFrameNumbers = Phaser.Types.Animations.GenerateFrameNumbers
 import DynamicTilemapLayer = Phaser.Tilemaps.DynamicTilemapLayer
 import StaticTilemapLayer = Phaser.Tilemaps.StaticTilemapLayer
 import Tile = Phaser.Tilemaps.Tile
+import Rectangle = Phaser.Geom.Rectangle
+import Size = Phaser.Structs.Size
 
 declare const IS_DEV: boolean
 
@@ -27,6 +29,14 @@ export default class GameScene extends Phaser.Scene {
   private layers: (DynamicTilemapLayer | StaticTilemapLayer)[] = []
   private depthTiles: Phaser.GameObjects.Image[] = []
   public mainInputController!: MainInputController
+
+  public costs = {
+    franken: {
+      money: 100,
+      bodyParts: 6,
+      inventory: 1
+    }
+  }
 
   public gameState!: GameState
   public staticObjects = {
@@ -52,11 +62,11 @@ export default class GameScene extends Phaser.Scene {
       time: 0,
       shoppers: [],
       frankens: [],
-      money: 0,
-      rearInventory: 0,
+      money: IS_DEV ? this.costs.franken.money : 0,
+      rearInventory: IS_DEV ? 3 : 0,
       frontInventory: 0,
-      bodyParts: 0,
-      price: 10
+      bodyParts: IS_DEV ? this.costs.franken.bodyParts : 0,
+      price: 50
     } as GameState
   }
 
@@ -66,6 +76,33 @@ export default class GameScene extends Phaser.Scene {
         this.events.emit(GameEvents.BUILD_FRANKEN)
       }, [], null)
     }
+  }
+
+
+  create () {
+    this.scene.launch(SceneKey.HUD)
+    this.createAnimations()
+    this.initializeInput()
+    this.makeMap()
+    this.pathFinder = new PathFinder(this.map)
+    this.initializeChars()
+    this.initializeCollision()
+    this.cameras.main.setDeadzone(16 * 8, 16 * 6)
+    this.cameras.main.startFollow(this.player)
+    this.cameras.main.roundPixels = true
+    this.cameras.main.zoom = 1.5
+    const controller = new GameStateController(this)
+    this.initializeEvents()
+    if (IS_DEV) {
+      // this.initDebug()
+    }
+    // this.resize(this.scale.gameSize, this.scale.baseSize, this.scale.displaySize, this.scale.resolution)
+    // this.scale.on('resize', this.resize, this)
+  }
+
+  resize (gameSize: Size, baseSize: Size, displaySize: Size, resolution: number) {
+    debugger
+    this.cameras.resize(gameSize.width, gameSize.height)
   }
 
   loadAudio () {
@@ -133,24 +170,6 @@ export default class GameScene extends Phaser.Scene {
 
   }
 
-  create () {
-    this.scene.launch(SceneKey.HUD)
-    this.createAnimations()
-    this.initializeInput()
-    this.makeMap()
-    this.pathFinder = new PathFinder(this.map)
-    this.initializeChars()
-    this.initializeCollision()
-    this.cameras.main.setDeadzone(16 * 8, 16 * 6)
-    this.cameras.main.startFollow(this.player)
-    this.cameras.main.roundPixels = true
-    this.cameras.main.zoom = 1.5
-    const controller = new GameStateController(this)
-    this.initializeEvents()
-    if (IS_DEV) {
-      // this.initDebug()
-    }
-  }
 
   makeMap () {
     this.map = this.make.tilemap({ key: mapKey, tileWidth: 16, tileHeight: 16 })
@@ -212,9 +231,6 @@ export default class GameScene extends Phaser.Scene {
             const tileImage = this.add.image(tile.pixelX + this.map.tileWidth, tile.pixelY + this.map.tileHeight, SpriteSheet.TILESHEET, tile.index - 1)
             tileImage.setDepth(tile.y + tile.properties.height)
             tileImage.setOrigin(1, 1)
-            if (tile.properties.type === TileTypes.VERTSHELF) {
-              console.log('tile depth', tileImage.depth, tile)
-            }
             this.depthTiles.push(tileImage)
           }
         }
@@ -344,7 +360,10 @@ export default class GameScene extends Phaser.Scene {
   }
 
   addShopper () {
+    if (this.shoppers.length >= 10) return
     const frontDoorTile = randomFrom(this.staticObjects.frontDoor)
+    const randInt = randomInt(0, 3)
+    console.log('add shopper', randInt)
     const keys = randomFrom([[SpriteSheet.SHOPPER_1, CharKey.SHOPPER1], [SpriteSheet.SHOPPER_2, CharKey.SHOPPER2], [SpriteSheet.SHOPPER_3, CharKey.SHOPPER3]] as [SpriteSheet, CharKey][])
     const shopper = new Shopper(this, frontDoorTile.pixelX, frontDoorTile.pixelY, keys[0], keys[1])
     this.shoppers.push(shopper)
@@ -361,6 +380,15 @@ export default class GameScene extends Phaser.Scene {
   }
 
   buildFranken () {
+    const cost = this.costs.franken
+    if (this.gameState.money < cost.money || this.gameState.bodyParts < cost.bodyParts || this.gameState.rearInventory < cost.inventory) {
+      return this.events.emit(GameEvents.CANT_BUILD_FRANK)
+    }
+
+    this.gameState.bodyParts -= cost.bodyParts
+    this.gameState.money -= cost.money
+    this.gameState.rearInventory -= cost.inventory
+
     this.tableFranken.setVisible(true)
     this.events.emit(GameEvents.FRANK_BUILT)
     this.time.delayedCall((1000 / 13) * 16, () => {

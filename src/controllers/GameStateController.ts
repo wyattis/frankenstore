@@ -1,15 +1,16 @@
 import GameScene from '../scenes/GameScene'
 import { GameEvents } from '../types/GameEvents'
 
+declare const IS_DEV: boolean
 export class GameStateController {
 
   private shopperDelay = 30 * 1000
-  private stockPurchaseDelay = 2 * 60 * 1000
+  private stockPurchaseDelay = 5 * 60 * 1000
   private nStockPurchases = 1
 
   constructor (private scene: GameScene) {
-    scene.time.delayedCall(1 * 1000, this.addShopper, [], this)
-    scene.time.delayedCall(30 * 1000, this.purchaseStock, [], this)
+    scene.time.delayedCall(5 * 1000, this.addShopper, [], this)
+    scene.time.delayedCall(2 * 60 * 1000, this.purchaseStock, [], this)
   }
 
   addShopper () {

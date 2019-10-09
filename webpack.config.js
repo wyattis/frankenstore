@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = {
   entry: './src/main.ts',
@@ -22,6 +23,19 @@ module.exports = {
   devtool: 'source-map',
   resolve: {
     extensions: [ '.tsx', '.ts', '.js', '.json' ]
+  },
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true,
+        terserOptions: {
+          mangle: false,
+          compress: true
+        }
+      })
+    ]
   },
   output: {
     filename: 'bundle.[hash].js',

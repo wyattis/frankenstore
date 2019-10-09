@@ -27,7 +27,7 @@ import Tile = Phaser.Tilemaps.Tile
 import Size = Phaser.Structs.Size
 import requireAll from '../requireAll'
 
-const sheets = requireAll(require.context('../../assets/images/', true, /\.(png|jpg)$/))
+const sheets = requireAll(require.context('../../assets/images/', true, /\.(png)$/))
 console.log(sheets)
 declare const IS_DEV: boolean
 
@@ -44,10 +44,10 @@ const spriteMap: [SpriteSheet, string, { frameWidth: number, frameHeight: number
 const normalSprites: typeof spriteMap = []
 const gameBoySprites: typeof spriteMap = []
 for (const m of spriteMap) {
-  const colorId = '../../assets/images/color/' + m[1]
-  const gameboyId = '../../assets/images/gameboy/' + m[1]
-  normalSprites.push([m[0], require(colorId), m[2]])
-  gameBoySprites.push([m[0], require(gameboyId), m[2]])
+  const colorId = './color/' + m[1]
+  const gameboyId = './gameboy/' + m[1]
+  normalSprites.push([m[0], sheets[colorId], m[2]])
+  gameBoySprites.push([m[0], sheets[gameboyId], m[2]])
 }
 
 export default class GameScene extends Phaser.Scene {
@@ -160,15 +160,15 @@ export default class GameScene extends Phaser.Scene {
   preload () {
     this.loadAudio()
     this.loadSprites()
-    let path = '../../assets/images/' + this.isGameBoy ? 'gameboy' : 'color'
+    let path = './' + (this.isGameBoy ? 'gameboy' : 'color')
     if (IS_DEV) {
-      this.load.spritesheet(SpriteSheet.TILESHEET, require(path + '/frankensheet.png'), {
+      this.load.spritesheet(SpriteSheet.TILESHEET, sheets[path + '/frankensheet.png'], {
         frameWidth: 16,
         frameHeight: 16
       })
       this.load.tilemapTiledJSON(mapKey, require('../../assets/maps/shop.json'))
     } else {
-      this.load.spritesheet(SpriteSheet.TILESHEET, require(path + '/frankensheet-extruded.png'), {
+      this.load.spritesheet(SpriteSheet.TILESHEET, sheets[path + '/frankensheet-extruded.png'], {
         frameWidth: 16,
         frameHeight: 16,
         spacing: 2,

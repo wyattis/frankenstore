@@ -3,12 +3,12 @@ import { GameEvents } from '../types/GameEvents'
 
 export class GameStateController {
 
-  private stockPurchaseDelay = 2 * 60 * 1000
+  private stockPurchaseDelay = 3 * 60 * 1000
   private nStockPurchases = 1
 
   constructor (private scene: GameScene) {
     scene.time.delayedCall(5 * 1000, this.addShopper, [], this)
-    scene.time.delayedCall(2 * 60 * 1000, this.purchaseStock, [], this)
+    scene.time.delayedCall(3 * 60 * 1000, this.purchaseStock, [], this)
   }
 
   addShopper () {

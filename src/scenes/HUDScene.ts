@@ -82,8 +82,8 @@ export default class HUDScene extends Phaser.Scene {
     this.baseStockText = this.add.text(350, 30, `Inventory shipment: $${this.stockPrice * this.nextStockPurchase}`)
 
     this.muteButton = this.add.image(620, 25, SpriteSheet.MUTE, 0)
-    this.introButton = this.add.image(650, 25, SpriteSheet.INFO, 0)
-    this.themeButton = this.add.image(700, 25, SpriteSheet.THEME, this.gameScene.isGameBoy ? 0 : 1)
+    this.introButton = this.add.image(660, 25, SpriteSheet.INFO, 0)
+    this.themeButton = this.add.image(720, 25, SpriteSheet.THEME, this.gameScene.isGameBoy ? 1 : 0)
 
     this.updateStock()
 
